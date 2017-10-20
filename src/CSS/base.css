@@ -1,0 +1,25 @@
+body,div{margin:0;padding:0}
+.mod_header .music_logo{
+	float: left;
+    display: block;
+    width: 270px;
+    height: 75px;
+    margin: 27px 0 0 30px;
+    background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/logo.png?max_age=19830212&d=20151105145423);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+.mod_header .btn_download{
+	position: absolute;
+    display: inline-block;
+    right: 30px;
+    top: 24px;
+    height: 84px;
+    padding: 0 48px;
+    line-height: 84px;
+    border-radius: 99px;
+    font-size: 42px;
+    background: #149c5a;
+    color: #fff;
+}
