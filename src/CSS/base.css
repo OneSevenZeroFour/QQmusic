@@ -23,3 +23,11 @@ body,div{margin:0;padding:0}
     background: #149c5a;
     color: #fff;
 }
+li,ul,ol{
+	list-style: none;
+	margin:0;padding:0;
+	-webkit-padding-start: 0;
+}
+a{
+	text-decoration: none
+}
