@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import store from "./store.js"
 import {Provider} from "react-redux"
 import "./CSS/base.css"
-import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom'
+import {HashRouter as Router, Route, Link, Redirect,IndexRoute} from 'react-router-dom'
 
 import RankList from './component/RankList.jsx'
 
 ReactDOM.render(
-	// <Router>
+	<Router>
   		<Provider store={store}>
 	  		<div>
 			    <div className="mod_header">
@@ -17,8 +17,10 @@ ReactDOM.render(
 			    		<a href="javascript:;" className="btn_download">下载APP</a>
 			    	</div>
 			    </div>
-			    <RankList />
+                <Route path="/">
+                    <Route path="/ranklist" component={RankList}></Route> 
+                </Route>
 			</div>
   		</Provider>
-	// </Router>
+	 </Router>
 	, document.getElementById("demo"))

@@ -3364,37 +3364,41 @@ var _RankList2 = _interopRequireDefault(_RankList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(
-// <Router>
-_react2.default.createElement(
-	_reactRedux.Provider,
-	{ store: _store2.default },
+_reactDom2.default.render(_react2.default.createElement(
+	_reactRouterDom.HashRouter,
+	null,
 	_react2.default.createElement(
-		"div",
-		null,
+		_reactRedux.Provider,
+		{ store: _store2.default },
 		_react2.default.createElement(
 			"div",
-			{ className: "mod_header" },
+			null,
 			_react2.default.createElement(
 				"div",
-				{ className: "header", style: { width: "100%", backgroundColor: "#31c27c", height: "132px" } },
+				{ className: "mod_header" },
 				_react2.default.createElement(
 					"div",
-					{ className: "music_logo" },
-					"QQ\u97F3\u4E50"
-				),
-				_react2.default.createElement(
-					"a",
-					{ href: "javascript:;", className: "btn_download" },
-					"\u4E0B\u8F7DAPP"
+					{ className: "header", style: { width: "100%", backgroundColor: "#31c27c", height: "132px" } },
+					_react2.default.createElement(
+						"div",
+						{ className: "music_logo" },
+						"QQ\u97F3\u4E50"
+					),
+					_react2.default.createElement(
+						"a",
+						{ href: "javascript:;", className: "btn_download" },
+						"\u4E0B\u8F7DAPP"
+					)
 				)
+			),
+			_react2.default.createElement(
+				_reactRouterDom.Route,
+				{ path: "/" },
+				_react2.default.createElement(_reactRouterDom.Route, { path: "/ranklist", component: _RankList2.default })
 			)
-		),
-		_react2.default.createElement(_RankList2.default, null)
+		)
 	)
-)
-// </Router>
-, document.getElementById("demo"));
+), document.getElementById("demo"));
 
 /***/ }),
 /* 49 */
@@ -28443,7 +28447,7 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28469,173 +28473,158 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var songList = new _SongList2.default();
 
 var style = {
-  listBackGround: {
-    backgroundColor: "#eee"
-  },
-  rankTab: {
-    margin: "1rem",
-    backgroundColor: "#fff"
-  },
-  rTab: {
-    display: "inline-block",
-    verticalAlign: "top",
-    margin: "0 3rem"
-  },
-  listTitle: {
-    margin: "1rem 0",
-    fontSize: "0.9em"
-  },
-  miniList: {
-    fontSize: "0.8em",
-    position: "relative"
-  },
-  miniListOrder: {
-    color: "#aaa"
-  },
-  miniListSongName: {
-    padding: "0 2rem"
-  },
-  miniListSingerName: {
-    color: "#aaa"
-  },
-  miniListSong: {
-    margin: '0 0 .5rem 0'
-  },
-  arrow: {
-    position: "absolute",
-    right: "-12rem",
-    top: "50%",
-    marginTop: "-2rem",
-    width: "1rem",
-    height: "1rem",
-    borderRight: ".4rem solid #b2b2b2",
-    borderBottom: ".4rem solid #b2b2b2",
-    transform: "rotate(-45deg)"
-  }
+    listBackGround: {
+        backgroundColor: "#eee"
+    },
+    rankTab: {
+        margin: "1rem",
+        backgroundColor: "#fff",
+        position: "relative"
+    },
+    rTab: {
+        display: "inline-block",
+        verticalAlign: "top",
+        margin: "0 3rem"
+    },
+    listTitle: {
+        margin: "1rem 0",
+        fontSize: "0.9em"
+    },
+    miniList: {
+        fontSize: "0.8em"
+    },
+    miniListOrder: {
+        color: "#aaa"
+    },
+    miniListSongName: {
+        padding: "0 2rem"
+    },
+    miniListSingerName: {
+        color: "#aaa"
+    },
+    miniListSong: {
+        margin: '0 0 .5rem 0'
+    },
+    arrow: {
+        position: "absolute",
+        right: "1rem",
+        top: "50%",
+        marginTop: "-1rem",
+        width: "1rem",
+        height: "1rem",
+        borderRight: ".4rem solid #b2b2b2",
+        borderBottom: ".4rem solid #b2b2b2",
+        transform: "rotate(-45deg)"
+    }
 };
 
 var HitNewSong = function (_React$Component) {
-  _inherits(HitNewSong, _React$Component);
+    _inherits(HitNewSong, _React$Component);
 
-  function HitNewSong(props) {
-    _classCallCheck(this, HitNewSong);
+    function HitNewSong(props) {
+        _classCallCheck(this, HitNewSong);
 
-    var _this = _possibleConstructorReturn(this, (HitNewSong.__proto__ || Object.getPrototypeOf(HitNewSong)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (HitNewSong.__proto__ || Object.getPrototypeOf(HitNewSong)).call(this, props));
 
-    _this.state = {
-      //   songlist: []
-    };
-    return _this;
-  }
-
-  _createClass(HitNewSong, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "section",
-        { id: "HitNewSong", className: "hit-new-song", style: style.listBackGround },
-        _react2.default.createElement(
-          "div",
-          { style: style.rankTab },
-          _react2.default.createElement("img", { alt: "#", src: "./image/01.png", style: {
-              display: "inline-block"
-            } }),
-          _react2.default.createElement(
-            "div",
-            { style: style.rTab },
-            _react2.default.createElement(
-              "p",
-              { style: style.listTitle },
-              "\u65B0\u6B4C\u6392\u884C"
-            ),
-            _react2.default.createElement(
-              "ul",
-              { style: style.miniList },
-              _react2.default.createElement(
-                "li",
-                { style: style.miniListSong },
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListOrder },
-                  "1"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSongName },
-                  "\u9057\u61BE(Live)"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSingerName },
-                  "- \u859B\u4E4B\u8C26"
-                )
-              ),
-              _react2.default.createElement(
-                "li",
-                { style: style.miniListSong },
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListOrder },
-                  "1"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSongName },
-                  "\u9057\u61BE(Live)"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSingerName },
-                  "- \u859B\u4E4B\u8C26"
-                )
-              ),
-              _react2.default.createElement(
-                "li",
-                { style: style.miniListSong },
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListOrder },
-                  "1"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSongName },
-                  "\u9057\u61BE(Live)"
-                ),
-                _react2.default.createElement(
-                  "span",
-                  { style: style.miniListSingerName },
-                  "- \u859B\u4E4B\u8C26"
-                )
-              ),
-              _react2.default.createElement("li", { style: style.arrow })
-            )
-          )
-        )
-      );
+        _this.state = {
+            songList: []
+        };
+        return _this;
     }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var self = this;
-      songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_newsong.js", self);
-    }
-  }]);
 
-  return HitNewSong;
+    _createClass(HitNewSong, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "section",
+                { id: "HitNewSong", className: "hit-new-song", style: style.listBackGround },
+                this.state.songList.map(function (e, i) {
+                    return _react2.default.createElement(
+                        "div",
+                        { style: style.rankTab, key: i },
+                        _react2.default.createElement("img", { alt: e.listTitle, src: e.listIMGUrl, style: {
+                                display: "inline-block"
+                            } }),
+                        _react2.default.createElement(
+                            "div",
+                            { style: style.rTab },
+                            _react2.default.createElement(
+                                "p",
+                                { style: style.listTitle },
+                                e.listTitle
+                            ),
+                            _react2.default.createElement(
+                                "ul",
+                                { style: style.miniList },
+                                function () {
+                                    var miniList = [];
+                                    for (var _i = 1; _i <= 3; _i++) {
+                                        miniList.push(_react2.default.createElement(
+                                            "li",
+                                            { style: style.miniListSong, key: _i },
+                                            _react2.default.createElement(
+                                                "span",
+                                                { style: style.miniListOrder },
+                                                _i
+                                            ),
+                                            _react2.default.createElement(
+                                                "span",
+                                                { style: style.miniListSongName },
+                                                e.song[_i - 1].songName
+                                            ),
+                                            _react2.default.createElement(
+                                                "span",
+                                                { style: style.miniListSingerName },
+                                                "- ",
+                                                e.song[_i - 1].singerName
+                                            )
+                                        ));
+                                    }
+                                    return miniList;
+                                }(),
+                                _react2.default.createElement("li", { style: style.arrow })
+                            )
+                        )
+                    );
+                })
+            );
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_newsong.js", this, "巅峰榜", "./image/01.png");
+            var timeout = 500;
+            if (sessionStorage.getItem('http://music.qq.com/musicbox/shop/v3/data/hit/hit_all.js')) {
+                timeout = 0;
+            }
+            //QQ音乐不允许短时间内请求1次以上，设置延时
+            setTimeout(function () {
+                songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_all.js", _this2, "热歌排行", "./image/00.png");
+            }, timeout);
+            setTimeout(function () {
+                songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_all.js", _this2, "新歌排行", "./image/02.png");
+                songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_newsong.js", _this2, "网络歌曲", "./image/01.png");
+                songList.getSongList("http://music.qq.com/musicbox/shop/v3/data/hit/hit_all.js", _this2, "内地热歌", "./image/00.png");
+            }, timeout * 2);
+        }
+    }]);
+
+    return HitNewSong;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
-  return state;
+    return state;
 }, function (dispatch) {
-  return {
-    sendName: function sendName(event) {
-      dispatch({ type: "SETNAME", name: event.target.value });
-    },
-    sendSkill: function sendSkill(event) {
-      dispatch({ type: "SETSKILL", skill: event.target.value });
-    }
-  };
+    return {
+        sendName: function sendName(event) {
+            dispatch({ type: "SETNAME", name: event.target.value });
+        },
+        sendSkill: function sendSkill(event) {
+            dispatch({ type: "SETSKILL", skill: event.target.value });
+        }
+    };
 })(HitNewSong);
 
 /***/ }),
@@ -28646,7 +28635,7 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _jquery = __webpack_require__(123);
@@ -28657,26 +28646,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SongList = function SongList() {};
 SongList.prototype = {
-  getSongList: function getSongList(url, self) {
-    _jquery2.default.ajax({
-      type: "get",
-      async: false,
-      url: url,
-      dataType: "jsonp",
-      jsonp: "callback",
-      jsonpCallback: "JsonCallback",
-      scriptCharset: 'GBK', //设置编码，否则会乱码
-      success: function success(data) {
-        self.setState({ songlist: data.songlist });
-        console.log(self.state.songlist);
-      },
-      error: function error() {
-        alert('fail');
-      }
-    });
-
-    return undefined;
-  }
+    getSongList: function getSongList(url, self, listTitle, imgUrl) {
+        if (sessionStorage.getItem(url)) {
+            var data = JSON.parse(sessionStorage.getItem(url));
+            self.setState(function (prevState) {
+                prevState.songList.push({ listTitle: listTitle, listIMGUrl: imgUrl, song: data });
+                return { songList: prevState.songList };
+            });
+        } else {
+            _jquery2.default.ajax({
+                type: "get",
+                async: false,
+                url: url,
+                dataType: "jsonp",
+                jsonp: "callback",
+                jsonpCallback: "JsonCallback",
+                scriptCharset: 'GBK', //设置编码，否则会乱码
+                success: function success(data) {
+                    self.setState(function (prevState) {
+                        prevState.songList.push({ listTitle: listTitle, listIMGUrl: imgUrl, song: data.songlist });
+                        sessionStorage.setItem(url, JSON.stringify(data.songlist));
+                        return { songList: prevState.songList };
+                    });
+                    console.log(self);
+                },
+                error: function error() {
+                    alert('fail');
+                }
+            });
+        }
+        return this;
+    }
 };
 
 exports.default = SongList;
