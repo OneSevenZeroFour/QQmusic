@@ -1,0 +1,22 @@
+.hdtab{
+	margin:0;
+	padding:0;
+	display:flex;
+	justify-content:space-around;
+	height:100px;
+}
+.hdtab li{
+	height:100px;
+	list-style:none;
+}
+.hdtab li a{
+	text-decoration: none;
+	font-size:48px;
+	color: rgba(0,0,0,.6);
+	padding:10px 106px 0;
+	line-height: 100px;
+}
+.hdtab .active{
+	color:#31c27c;
+	border-bottom:2px solid #31c27c;
+}
