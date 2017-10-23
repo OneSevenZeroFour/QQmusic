@@ -1,4 +1,5 @@
 import React from "react";
+import App from "./carousel.jsx"
 
 class Xrecommand extends React.Component{
 	constructor(props) {
@@ -7,8 +8,8 @@ class Xrecommand extends React.Component{
 	render() {
 	    return (
 	      <div>
-	      	Xrecommand
 	      	
+	      	<App/>
 	      </div>	
 	    )
   }
