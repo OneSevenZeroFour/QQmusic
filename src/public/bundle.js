@@ -3454,7 +3454,6 @@ SongList.prototype = {
         } else {
             _jquery2.default.ajax({
                 type: "get",
-                async: false,
                 url: "https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg",
                 dataType: "jsonp",
                 jsonp: "callback",
@@ -3473,23 +3472,31 @@ SongList.prototype = {
         }
         return this;
     },
+    //过滤器
     listenCountFilter: function listenCountFilter(val) {
         return (val / 10000).toFixed(1) + "万";
     },
-    getTopListFromID: function getTopListFromID(id) {
+    //根据ID获取100首歌曲列表
+    getTopListFromID: function getTopListFromID(id, self) {
+        var detail = {};
         if (sessionStorage.getItem('ID' + id)) {
-            var data = JSON.parse(sessionStorage.getItem('ID' + id));
-            console.log(data);
+            detail = JSON.parse(sessionStorage.getItem('ID' + id));
+            console.log(detail);
+            self.setState({ detail: detail });
         } else {
             _jquery2.default.ajax({
                 type: "get",
-                async: false,
                 url: "http://localhost:12345/get",
                 data: { id: id },
                 success: function success(data) {
-                    console.log(JSON.parse(data));
-                    if (data === "网络故障" || data === " ") return;
-                    sessionStorage.setItem('ID' + id, data);
+                    if (data === "网络故障" || data === " ") {
+                        console.log(data);
+                    } else {
+                        detail = JSON.parse(data);
+                        console.log(detail);
+                        sessionStorage.setItem('ID' + id, data);
+                        self.setState({ detail: detail });
+                    }
                 },
                 error: function error() {
                     alert('请检查网络！');
@@ -28569,11 +28576,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(41);
+
+var _RankListCss = __webpack_require__(125);
+
+var _RankListCss2 = _interopRequireDefault(_RankListCss);
+
 var _SongList = __webpack_require__(49);
 
 var _SongList2 = _interopRequireDefault(_SongList);
-
-var _reactRouterDom = __webpack_require__(41);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28582,89 +28593,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//引入样式
+
 
 var songList = new _SongList2.default();
-
-var style = {
-    listBackGround: {
-        backgroundColor: "#eee"
-    },
-    rankTab: {
-        margin: "1rem",
-        backgroundColor: "#fff",
-        position: "relative"
-    },
-    rTab: {
-        display: "inline-block",
-        verticalAlign: "top",
-        margin: "0 3rem",
-        minWidth: "496px",
-        width: '50%',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
-    },
-    listTitle: {
-        margin: "1rem 0",
-        fontSize: "0.9em"
-    },
-    miniList: {
-        fontSize: "0.8em"
-    },
-    miniListOrder: {
-        color: "#aaa"
-    },
-    miniListSongName: {
-        padding: "0 2rem",
-
-        overflow: 'hidden'
-    },
-    miniListSingerName: {
-        color: "#aaa",
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
-
-    },
-    miniListSong: {
-        margin: '0 0 .5rem 0',
-
-        display: "flex"
-    },
-    arrow: {
-        position: "absolute",
-        right: "1rem",
-        top: "50%",
-        marginTop: "-1rem",
-        width: "1rem",
-        height: "1rem",
-        borderRight: ".4rem solid #b2b2b2",
-        borderBottom: ".4rem solid #b2b2b2",
-        transform: "rotate(-45deg)"
-    },
-    listenCount: {
-        position: 'absolute',
-        left: '.5rem',
-        bottom: "1rem",
-        color: '#fff',
-        fontSize: '2rem'
-    },
-    coverStyle: {
-        display: "inline-block",
-        minWidth: "300px",
-        minHeight: "300px",
-        marginTop: ".7rem"
-    },
-    earPhoneIcon: {
-        display: 'inline-block',
-        backgroundImage: "url(./image/list_sprite.png)",
-        backgroundSize: "4rem 7rem",
-        width: "1.8rem",
-        height: "1.2rem",
-        backgroundPosition: '0 1.2rem',
-        marginRight: '.5rem'
-    }
-};
 
 var HitNewSong = function (_React$Component) {
     _inherits(HitNewSong, _React$Component);
@@ -28685,52 +28617,52 @@ var HitNewSong = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "section",
-                { id: "HitNewSong", className: "hit-new-song", style: style.listBackGround },
+                { id: "HitNewSong", className: "hit-new-song", style: _RankListCss2.default.listBackGround },
                 this.state.songList.map(function (e, i) {
                     return _react2.default.createElement(
                         "div",
-                        { style: style.rankTab, key: e.id },
+                        { style: _RankListCss2.default.rankTab, key: e.id },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
                             { style: { display: "inline-block", position: 'relative' }, to: '/toplist/' + e.id },
-                            _react2.default.createElement("img", { alt: e.topTitle, src: e.picUrl, style: style.coverStyle }),
+                            _react2.default.createElement("img", { alt: e.topTitle, src: e.picUrl, style: _RankListCss2.default.coverStyle }),
                             _react2.default.createElement(
                                 "span",
-                                { style: style.listenCount },
-                                _react2.default.createElement("i", { style: style.earPhoneIcon }),
+                                { style: _RankListCss2.default.listenCount },
+                                _react2.default.createElement("i", { style: _RankListCss2.default.earPhoneIcon }),
                                 songList.listenCountFilter(e.listenCount)
                             )
                         ),
                         _react2.default.createElement(
                             "div",
-                            { style: style.rTab },
+                            { style: _RankListCss2.default.rTab },
                             _react2.default.createElement(
                                 "p",
-                                { style: style.listTitle },
+                                { style: _RankListCss2.default.listTitle },
                                 e.topTitle
                             ),
                             _react2.default.createElement(
                                 "ul",
-                                { style: style.miniList },
+                                { style: _RankListCss2.default.miniList },
                                 function () {
                                     var miniList = [];
                                     for (var _i = 1; _i <= 3; _i++) {
                                         miniList.push(_react2.default.createElement(
                                             "li",
-                                            { style: style.miniListSong, key: _i },
+                                            { style: _RankListCss2.default.miniListSong, key: _i },
                                             _react2.default.createElement(
                                                 "span",
-                                                { style: style.miniListOrder },
+                                                { style: _RankListCss2.default.miniListOrder },
                                                 _i
                                             ),
                                             _react2.default.createElement(
                                                 "span",
-                                                { style: style.miniListSongName },
+                                                { style: _RankListCss2.default.miniListSongName },
                                                 e.songList[_i - 1].songname
                                             ),
                                             _react2.default.createElement(
                                                 "span",
-                                                { style: style.miniListSingerName },
+                                                { style: _RankListCss2.default.miniListSingerName },
                                                 "- ",
                                                 e.songList[_i - 1].singername
                                             )
@@ -28738,7 +28670,7 @@ var HitNewSong = function (_React$Component) {
                                     }
                                     return miniList;
                                 }(),
-                                _react2.default.createElement("li", { style: style.arrow })
+                                _react2.default.createElement("li", { style: _RankListCss2.default.arrow })
                             )
                         )
                     );
@@ -39051,6 +38983,10 @@ var _SongList = __webpack_require__(49);
 
 var _SongList2 = _interopRequireDefault(_SongList);
 
+var _TopListCss = __webpack_require__(126);
+
+var _TopListCss2 = _interopRequireDefault(_TopListCss);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39070,7 +39006,7 @@ var Toplist = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Toplist.__proto__ || Object.getPrototypeOf(Toplist)).call(this, props));
 
         _this.state = {
-            songList: []
+            detail: {}
         };
         return _this;
     }
@@ -39078,35 +39014,171 @@ var Toplist = function (_React$Component) {
     _createClass(Toplist, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 null,
                 _react2.default.createElement(
-                    "ul",
+                    "header",
+                    { style: _TopListCss2.default.header },
+                    " ",
+                    _react2.default.createElement("img", { src: this.state.detail.topinfo ? this.state.detail.topinfo.pic_album : "#", style: _TopListCss2.default.cover }),
+                    _react2.default.createElement(
+                        "div",
+                        { style: _TopListCss2.default.headTitle },
+                        _react2.default.createElement(
+                            "div",
+                            { style: _TopListCss2.default.headIntroduce },
+                            _react2.default.createElement("img", { src: this.state.detail.topinfo ? this.state.detail.topinfo.pic_album : "#", style: _TopListCss2.default.coverImage }),
+                            _react2.default.createElement(
+                                "ul",
+                                { style: _TopListCss2.default.rtitle },
+                                _react2.default.createElement(
+                                    "li",
+                                    { style: _TopListCss2.default.rTopTitle },
+                                    this.state.detail.topinfo ? this.state.detail.topinfo.ListName : "加载中……"
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    { style: _TopListCss2.default.listDays },
+                                    "\u7B2C",
+                                    function () {
+                                        if (_this2.state.detail.day_of_year) {
+                                            return _this2.state.detail.day_of_year + '天';
+                                        } else {
+                                            return _this2.state.detail.date ? _this2.state.detail.date.split("_")[1] + "周" : "加载中……";
+                                        }
+                                    }()
+                                ),
+                                _react2.default.createElement(
+                                    "li",
+                                    { style: _TopListCss2.default.listUpdateTime },
+                                    this.state.detail.update_time,
+                                    " \u66F4\u65B0"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { style: _TopListCss2.default.playBottom },
+                            _react2.default.createElement(
+                                "p",
+                                { style: _TopListCss2.default.playButton },
+                                _react2.default.createElement("i", { style: _TopListCss2.default.triangle }),
+                                "\u64AD\u653E\u5168\u90E8"
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "article",
                     null,
                     _react2.default.createElement(
-                        "li",
-                        null,
-                        "1"
+                        "ul",
+                        { style: _TopListCss2.default.list },
+                        _react2.default.createElement(
+                            "span",
+                            { style: _TopListCss2.default.songCount },
+                            "\u6392\u884C\u699C  \u5171",
+                            this.state.detail.cur_song_num ? this.state.detail.cur_song_num : '加载中……',
+                            "\u9996"
+                        ),
+                        function () {
+                            var toplist = [];
+                            if (_this2.state.detail.songlist) {
+                                var songlist = _this2.state.detail.songlist;
+                                toplist.push(songlist.map(function (e, i) {
+                                    return _react2.default.createElement(
+                                        "li",
+                                        { style: _TopListCss2.default.listItem, key: e.data.songid },
+                                        _react2.default.createElement(
+                                            "ul",
+                                            { style: _TopListCss2.default.songOrder },
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: i < 3 ? { color: '#FF400B' } : {} },
+                                                i + 1
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            "ul",
+                                            { style: _TopListCss2.default.songDetail },
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: _TopListCss2.default.songName },
+                                                e.data.songname
+                                            ),
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: _TopListCss2.default.singerName },
+                                                e.data.singer.map(function (e, i) {
+                                                    if (i === 0) {
+                                                        return e.name;
+                                                    }
+                                                    return '/' + e.name;
+                                                })
+                                            )
+                                        )
+                                    );
+                                }));
+                                return toplist;
+                            } else {
+                                return;
+                            }
+                        }()
+                    )
+                ),
+                _react2.default.createElement(
+                    "footer",
+                    { style: _TopListCss2.default.footer },
+                    _react2.default.createElement(
+                        "p",
+                        { style: _TopListCss2.default.footerTitle },
+                        "\u7B80\u4ECB"
+                    ),
+                    function () {
+                        if (_this2.state.detail.topinfo) {
+                            var arr = [];
+                            arr = _this2.state.detail.topinfo.info.split('<br>').map(function (e, i) {
+                                if (e === "") return _react2.default.createElement("br", { key: i });
+                                return _react2.default.createElement(
+                                    "p",
+                                    { style: _TopListCss2.default.footerArticle, key: i },
+                                    e
+                                );
+                            });
+                            return arr;
+                        } else {
+                            return _react2.default.createElement(
+                                "p",
+                                null,
+                                "\u52A0\u8F7D\u4E2D\u2026\u2026"
+                            );
+                        }
+                    }(),
+                    _react2.default.createElement(
+                        "p",
+                        { style: _TopListCss2.default.footerTitle },
+                        _react2.default.createElement("img", { src: "./image/logo.svg", style: _TopListCss2.default.footerImg })
                     ),
                     _react2.default.createElement(
-                        "li",
-                        null,
-                        "2"
-                    ),
-                    _react2.default.createElement(
-                        "li",
-                        null,
-                        "3"
+                        "p",
+                        { style: _TopListCss2.default.footerTitle },
+                        "QQ\u97F3\u4E50"
                     )
                 )
             );
         }
     }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            console.log(this.props);
-            songList.getTopListFromID(3);
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            var _this3 = this;
+
+            songList.getTopListFromID(this.props.match.params.id, this);
+            setTimeout(function () {
+                console.log(_this3.state);
+            }, 500);
         }
     }]);
 
@@ -39118,6 +39190,242 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 }, function (dispatch) {
     return {};
 })(Toplist);
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var style = {
+    listBackGround: {
+        backgroundColor: "#eee"
+    },
+    rankTab: {
+        margin: "1rem",
+        backgroundColor: "#fff",
+        position: "relative"
+    },
+    rTab: {
+        display: "inline-block",
+        verticalAlign: "top",
+        margin: "0 3rem",
+        minWidth: "496px",
+        width: '50%',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+    },
+    listTitle: {
+        margin: "1rem 0",
+        fontSize: "0.9em"
+    },
+    miniList: {
+        fontSize: "0.8em"
+    },
+    miniListOrder: {
+        color: "#aaa"
+    },
+    miniListSongName: {
+        padding: "0 2rem",
+
+        overflow: 'hidden'
+    },
+    miniListSingerName: {
+        color: "#aaa",
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+
+    },
+    miniListSong: {
+        margin: '0 0 .5rem 0',
+
+        display: "flex"
+    },
+    arrow: {
+        position: "absolute",
+        right: "1rem",
+        top: "50%",
+        marginTop: "-1rem",
+        width: "1rem",
+        height: "1rem",
+        borderRight: ".4rem solid #b2b2b2",
+        borderBottom: ".4rem solid #b2b2b2",
+        transform: "rotate(-45deg)"
+    },
+    listenCount: {
+        position: 'absolute',
+        left: '.5rem',
+        bottom: "1rem",
+        color: '#fff',
+        fontSize: '2rem'
+    },
+    coverStyle: {
+        display: "inline-block",
+        minWidth: "300px",
+        minHeight: "300px",
+        marginTop: ".7rem"
+    },
+    earPhoneIcon: {
+        display: 'inline-block',
+        backgroundImage: "url(./image/list_sprite.png)",
+        backgroundSize: "4rem 7rem",
+        width: "1.8rem",
+        height: "1.2rem",
+        backgroundPosition: '0 1.2rem',
+        marginRight: '.5rem'
+    }
+};
+
+exports.default = style;
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var style = {
+    header: {
+        width: '100%',
+        minWidth: '320px',
+        height: '750px',
+        fontSize: '3rem',
+        position: 'absolute',
+        overflow: 'hidden',
+        top: '132px'
+    },
+    cover: {
+        width: '100%',
+        height: '100%',
+        WebkitFilter: 'blur(5rem)',
+        position: 'absolute',
+        zIndex: '-1'
+    },
+    headTitle: {
+        background: 'rgba(0,0,0,.4)',
+        width: '100%',
+        height: '100%'
+    },
+    coverImage: {
+        width: '400px',
+        height: '400px',
+        display: 'inline-block'
+    },
+    rtitle: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        textAlign: 'left',
+        padding: '2rem 0 0 2rem',
+        color: '#fff',
+        width: '50%',
+        fontWeight: '100'
+    },
+    headIntroduce: {
+        textAlign: 'center',
+        paddingTop: '3rem'
+    },
+    rTopTitle: {
+        fontSize: '3.5rem',
+        paddingBottom: '2rem'
+    },
+    listDays: {
+        fontSize: '2.5rem',
+        paddingBottom: '2rem'
+    },
+    listUpdateTime: {
+        fontSize: '2.5rem',
+        paddingBottom: '2rem'
+    },
+    playBottom: {
+        textAlign: 'center',
+        color: "#fff"
+    },
+    playButton: {
+        backgroundColor: 'rgba(0,0,0,.7)',
+        width: '20rem',
+        margin: '6rem auto',
+        padding: "2rem 7rem",
+        borderRadius: "8rem"
+    },
+    list: {
+        width: '95%',
+        margin: '780px auto 0',
+        fontSize: '3rem',
+        fontWeight: '100'
+    },
+    listItem: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '1.2rem 0'
+    },
+    songOrder: {
+        width: '15%',
+        flex: 1,
+        textAlign: 'center'
+    },
+    songDetail: {
+        // flex:1
+        width: '85%'
+    },
+    songName: {
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+    },
+    singerName: {
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        color: '#777',
+        fontSize: '2.5rem',
+        paddingTop: '.5rem'
+    },
+    triangle: {
+        display: 'inline-block',
+        height: 0,
+        width: 0,
+        borderColor: 'transparent transparent transparent #fff',
+        borderWidth: '1.2rem 2rem',
+        borderStyle: 'solid',
+        borderRadius: '.5rem'
+    },
+    songCount: {
+        color: '#777',
+        fontSize: '2.5rem',
+        paddingLeft: '2rem'
+    },
+    footer: {
+        fontSize: '3.2rem',
+        fontWeight: '100'
+    },
+    footerTitle: {
+        textAlign: 'center',
+        margin: "0 0 3rem"
+    },
+    footerArticle: {
+        width: '93%',
+        fontSize: '2rem',
+        margin: "0 auto",
+        color: "#777"
+    },
+    footerImg: {
+        height: "6rem",
+        marginTop: "5rem",
+        marginBottom: "-3rem"
+    }
+};
+
+exports.default = style;
 
 /***/ })
 /******/ ]);

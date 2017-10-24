@@ -31,6 +31,7 @@ var express = require("express");
 var app = express();
 app.use(express.static('./public'));
 app.get("/get", function(req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
     http.request({
         hostname: "c.y.qq.com",
         path: '/v8/fcg-bin/fcg_v8_toplist_cp.fcg?topid=' + req.query.id,
