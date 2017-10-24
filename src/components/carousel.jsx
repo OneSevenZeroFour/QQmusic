@@ -15,11 +15,11 @@ class App extends React.Component{
     render() {
       return (
         <Carousel>
-          <img src="https://y.gtimg.cn/music/photo_new/T003R720x288M000000FUqEs2TsRZe.jpg?max_age=2592000&max_age=2592000"/>
-          <img src="https://y.gtimg.cn/music/photo_new/T003R720x288M000001iwVhX2hUO62.jpg?max_age=2592000&max_age=2592000"/>
-          <img src="https://y.gtimg.cn/music/photo_new/T003R720x288M000001BLDpp2YiovD.jpg?max_age=2592000&max_age=2592000"/>
-          <img src="https://y.gtimg.cn/music/photo_new/T003R720x288M000001HWamT3AF2xE.jpg?max_age=2592000&max_age=2592000"/>
-          <img src="https://y.gtimg.cn/music/photo_new/T003R720x288M000002VYJ9g2FsdhF.jpg?max_age=2592000&max_age=2592000"/>
+          <img src="./img/1.jpg"/>
+          <img src="./img/2.jpg"/>
+          <img src="./img/3.jpg"/>
+          <img src="./img/4.jpg"/>
+          <img src="./img/5.jpg"/>
         </Carousel>
       )
     }
