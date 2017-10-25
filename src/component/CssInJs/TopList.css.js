@@ -11,7 +11,7 @@ let style = {
     cover:{
         width:'100%',
         height:'100%',
-        WebkitFilter: 'blur(5rem)',
+        WebkitFilter: 'blur(4rem)',
         position:'absolute',
         zIndex:'-1'
     },
@@ -24,6 +24,9 @@ let style = {
         width:'400px',
         height:'400px',
         display:'inline-block',
+        backgroundImage:"url(./image/default_pic.jpg)",
+        backgroundRepeat:"no-repeat",
+        backgroundSize:"cover"
     },
     rtitle:{
         display:'inline-block',
@@ -65,7 +68,7 @@ let style = {
         width:'95%',
         margin:'780px auto 0',
         fontSize:'3rem',
-        fontWeight:'100'
+        fontWeight:'100',
     },
     listItem:{
         display:'flex',

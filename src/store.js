@@ -1,14 +1,15 @@
 import {createStore} from "redux";
 
 let store = createStore((state = {
-  name: "asd",
+  hit_newsong:[],
+  detail:{}
 }, action) => {
   switch (action.type) {
-    case "SETNAME":
-      	return Object.assign({},state,{name: action.name})
+    case "SETRANKLIST":
+        return Object.assign({},state,{hit_newsong: action.songList})
       break;
-     case "SETSKILL":
-      	return Object.assign({},state,{skill: action.skill})
+    case "SETDETAIL":
+      	return Object.assign({},state,{detail: action.detail})
       break;
     default:
       return state

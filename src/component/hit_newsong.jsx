@@ -8,60 +8,71 @@ import SongList from "./js/SongList"
 const songList = new SongList();
 
 class HitNewSong extends React.Component {
-    constructor(props) {
+    constructor(props){
         super(props);
-        this.state = {
-            songList: []
+        this.lazyLoad=()=>{
+            let items= document.getElementsByClassName('listItems')
+            for (let val of items){
+                 if(document.documentElement.scrollTop+document.documentElement.clientHeight>=val.offsetTop){
+                     val.children[0].children[0].src=val.children[0].children[0].getAttribute("url")
+                 }
+            }
         }
     }
     render() {
         return (
             <section id="HitNewSong" className="hit-new-song" style={style.listBackGround}>
-                {this.state.songList.map((e, i) => {
-                    return <div style={style.rankTab} key={e.id}>
-                        <Link style={{display: "inline-block",position:'relative'}} to={'/toplist/'+e.id}>
-                            <img alt={e.topTitle} src={e.picUrl} style={style.coverStyle}/>
-                            <span style={style.listenCount}><i style={style.earPhoneIcon}></i>{songList.listenCountFilter(e.listenCount)}</span>
-                        </Link>
-                        <div style={style.rTab}>
-                            <p style={style.listTitle}>{e.topTitle}</p>
-                            <ul style={style.miniList}>
-                                {(() => {
-                                    let miniList = [];
-                                    for (let i = 1; i <= 3; i++) {
-                                        miniList.push(
-                                            <li style={style.miniListSong} key={i}>
-                                                <span style={style.miniListOrder}>{i}</span>
-                                                <span style={style.miniListSongName}>{e.songList[i - 1].songname}</span>
-                                                <span style={style.miniListSingerName}>- {e.songList[i - 1].singername}</span>
-                                            </li>
-                                        )
-                                    }
-                                    return miniList
-                                })()}
-
-                                <li style={style.arrow}></li>
-                            </ul>
-                        </div>
-                    </div>
+                {this.props.hit_newsong.map((e, i) => {
+                    return  <Link style={{color:'#333'}} to={'/toplist/'+e.id} key={e.id}>
+                                <div style={style.rankTab} className="listItems">
+                                    <div style={{display: "inline-block",position:'relative'}}>
+                                        <img alt={e.topTitle} url={e.picUrl} src="#" style={style.coverStyle}/>
+                                        <span style={style.listenCount}><i style={style.earPhoneIcon}></i>{songList.listenCountFilter(e.listenCount)}</span>
+                                    </div>
+                                    <div style={style.rTab}>
+                                        <p style={style.listTitle}>{e.topTitle}</p>
+                                        <ul style={style.miniList}>
+                                            {(() => {
+                                                let miniList = [];
+                                                for (let i = 1; i <= 3; i++) {
+                                                    miniList.push(
+                                                        <li style={style.miniListSong} key={i}>
+                                                            <span style={style.miniListOrder}>{i}</span>
+                                                            <span style={style.miniListSongName}>{e.songList[i - 1].songname}</span>
+                                                            <span style={style.miniListSingerName}>- {e.songList[i - 1].singername}</span>
+                                                        </li>
+                                                    )
+                                                }
+                                                return miniList
+                                            })()}
+                                            <li style={style.arrow}></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </Link>
                 })}
             </section>
         )
     }
-    componentDidMount() {
+    componentWillMount() {
         songList.getCurrnetSongList(this);
+    }
+    componentDidMount() {
+            document.addEventListener("scroll",()=>{
+                    this.lazyLoad()
+                })
+    }
+    componentDidUpdate() {
+            this.lazyLoad();
     }
 }
 
 export default connect((state) => {
     return state
-}, (dispatch) => {
-    return {
-        sendName(event) {
-            dispatch({type: "SETNAME", name: event.target.value})
-        },
-        sendSkill(event) {
-            dispatch({type: "SETSKILL", skill: event.target.value})
+},(dispatch)=>{
+    return{
+        setList(arr){
+            dispatch({type:'SETRANKLIST',songList:arr})
         }
     }
 })(HitNewSong);

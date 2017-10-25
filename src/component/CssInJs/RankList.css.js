@@ -3,6 +3,7 @@ let style = {
         backgroundColor: "#eee"
     },
     rankTab: {
+        display:'flex',
         margin: "1rem",
         backgroundColor: "#fff",
         position: "relative"
@@ -64,9 +65,11 @@ let style = {
     },
     coverStyle:{
         display:"inline-block",
-        minWidth:"300px",
-        minHeight:"300px",
-        marginTop:".7rem"
+        width:"300px",
+        height:"300px",
+        marginTop:".7rem",
+        backgroundImage:"url(./image/default_pic.jpg)",
+        backgroundRepeat:"no-repeat"
     },
     earPhoneIcon:{
         display:'inline-block',

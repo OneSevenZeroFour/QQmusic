@@ -22,13 +22,4 @@ class RankList extends React.Component {
 
 export default connect((state) => {
   return state
-}, (dispatch) => {
-  return {
-    sendName(event) {
-      dispatch({type: "SETNAME",name:event.target.value})
-    },
-    sendSkill(event) {
-      dispatch({type: "SETSKILL",skill:event.target.value})
-    }
-  }
 })(RankList);
