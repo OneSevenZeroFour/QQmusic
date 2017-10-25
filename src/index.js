@@ -11,6 +11,7 @@ import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom'
 
 ReactDOM.render(
 	<Router>
+	<Provider store={store}>
   	<div>
     <div className="mod_header">
     	<div className="header" style={{width:"100%",backgroundColor: "#31c27c",height:"132px"}}>
@@ -23,4 +24,5 @@ ReactDOM.render(
    
     
    </div>
+   </Provider>
 </Router>, document.getElementById("demo"))

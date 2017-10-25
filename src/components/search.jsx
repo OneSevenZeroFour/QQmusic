@@ -1,16 +1,168 @@
 import React from "react";
+import "../CSS/searchbox.css"
+import "../CSS/search.css"
+import {connect} from "react-redux"
+import axios from 'axios'
+import $ from "jquery" 
 
 class Xsearch extends React.Component{
 	constructor(props) {
 	    super(props);
-	}
+	    this.state = {
+	    	isshow: false,
+	    	isvalue:"",
+	    	pageNo: 1,
+	    	totalCount: 0,
+	    	songList: [],
+	    	isSearch: true,
+	    	isCanGet: true,
+	    	isRemindDivShow:true
+	    }
+	    this.submit= ()=>{
+	    	return false
+	    }
+	    this.show=()=>{
+	      this.setState({
+	      	isshow: true,
+	      	isRemindDivShow:true
+	      })
+
+	    }
+	    this.close=()=>{
+	      this.setState({
+	      	isshow: false,
+	      	isvalue:"",
+	      	isRemindDivShow:true
+	      })
+	    }
+	    this.showvalue=(e)=>{
+	    	this.setState({
+	    		isvalue:e.target.value,
+	    	})
+
+	    }
+	}	
+		//数据搜索
+		getSearhListAjax(){
+    		let self = this;
+    		this.setState({
+	            isRemindDivShow:false
+	        });
+    		let offset = (this.state.pageNo - 1) * 20;
+	    	let searchText = document.getElementsByClassName('search_input')[0].value;
+	    	let isSearch = this.state.isSearch;
+	    	if (this.state.isCanGet){
+		    	// self.setState({
+	      //           isCanGet: false,
+	      //       });
+	            if (this.state.isSearch) {
+	                self.setState({
+	                    songList: []
+	                });
+	                console.log(777)
+	            }
+	            console.log(888)
+		    	axios.get(`https://api.imjad.cn/cloudmusic/?type=search&offset=${offset}&s=${searchText}`).then((response) => {
+	                self.setState({
+	                    
+	                    totalCount: response.data.result.songCount,
+	                    songList: response.data.result.songs,
+	                    isSearch: true
+	                });
+	                console.log(666)
+	                console.log(searchText);
+	                console.log(self.state.songList)
+	            }).catch(function (error) {
+	                self.setState({
+	                    isCanGet: true,
+	                });
+	                
+	            });
+	    	}
+	    }
+	    //监听键盘事件
+	    keyboardListener(event) {
+	        if (event.keyCode === 13) {
+	        	this.setState({
+	                isRemindDivShow:false,
+	            });
+
+	            this.getSearhListAjax();
+	        }
+	    }
+	    //热搜
+	    fastSearch(e){
+	    	console.log(e.target.innerText)
+	    	document.getElementsByClassName('search_input')[0].value=e.target.innerText;
+	        this.setState({
+	            isRemindDivShow:false
+	        });
+	        this.show();
+	        this.getSearhListAjax();
+	    }
+	componentDidMount(){
+		
+	   console.log(this.state.songList)
+	 }
 	render() {
 	    return (
-	      <div>
-	      	Xsearch
+	    	<div>
+		      <div className="searchbox" style={{width:"100%",height:"168px",lineHeight:"168px",backgroundColor:"#f4f4f4",overflow:"hidden",textAlign:"center"}}>
+		      		<div className="searchbox1">
+			      			<form onClick={this.show} id="search_form" method="get"  onSubmit={this.submit}>
+				                <input onKeyUp={this.keyboardListener.bind(this)} onInput={this.showvalue} className="search_input" type="search" autoComplete="off" autoCorrect="off" placeholder="搜索歌曲、歌单、专辑" value={this.state.isvalue}/>
+
+				            </form>
+				            <span className="icon icon_search">搜索</span>
+				            <div onClick={this.close} className="search_bar" style={{display:this.state.isshow?"block":"none"}}>
+				            	取消
+				            </div>
+							
+			      	</div> 
+
+		      </div>
+		       <div className="hot_key" style={{display:this.state.isshow?"none":"block"}}>
+		       		<h3 className="result_tit">热门搜索</h3>
+		       		<div className="result_tags">
+		       			<a href="https://y.qq.com/m/act/singchina2/index.html?ADTAG=myqq"
+		       			className="tag_hot tag_s" ref="aa">中国新歌声第二季</a>
+		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">一生所爱 卢冠廷</a>
+		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">DJ舞曲(华语)系列5 DJ</a>
+		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">风一样的我</a>
+		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">WHAT ARE WORDS</a>
+		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">流着泪说分手</a>
+		       		</div>
+		       </div>
+		       <div style={{display:this.state.isRemindDivShow?'none':'block'}}>
+					<div className="search_result">
+						<ul className="search_content" >
+					       	{
+					       		
+					       	this.state.songList.map((item, index) => {
+					       		if(this.state.songList!=[]){
+								return (
+                                    <li className="qqMusic-searchList-item border-bottom" key={index}>
+                                    	<span className="left"><img src={item.al.picUrl} /></span>
+                                    	<div className="left person">
+                                    		<h6 className="qqMusic-searchList-item-title">{item.name}</h6>
+                                        	<p className="qqMusic-searchList-item-singer">{item.ar[0].name}</p>
+                         
+                                    	</div>
+                                        
+                                    </li>
+                                )
+					       		}
+                                
+                            })
+						}
+					</ul>
+					</div>
+		       </div>
+		       
 	      </div>	
 	    )
   }
 }
+
 
 export default Xsearch;
