@@ -631,6 +631,25 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(84);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
+
+
+
+
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -697,7 +716,7 @@ var createPath = exports.createPath = function createPath(location) {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -768,7 +787,7 @@ var createPath = function createPath(location) {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,7 +811,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -861,25 +880,6 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(84);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
-
-
-
-
-
-
-/***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -888,7 +888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(10);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -971,7 +971,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(6);
-  var warning = __webpack_require__(11);
+  var warning = __webpack_require__(12);
   var ReactPropTypesSecret = __webpack_require__(15);
   var loggedTypeFailures = {};
 }
@@ -1200,7 +1200,7 @@ var _valueEqual = __webpack_require__(43);
 
 var _valueEqual2 = _interopRequireDefault(_valueEqual);
 
-var _PathUtils = __webpack_require__(8);
+var _PathUtils = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3446,9 +3446,7 @@ SongList.prototype = {
     getCurrnetSongList: function getCurrnetSongList(self) {
         if (sessionStorage.getItem("TopList")) {
             var data = JSON.parse(sessionStorage.getItem("TopList"));
-            self.setState(function (prevState) {
-                return { songList: data };
-            });
+            self.props.setList(data);
         } else {
             _jquery2.default.ajax({
                 type: "get",
@@ -3457,10 +3455,8 @@ SongList.prototype = {
                 jsonp: "callback",
                 jsonpCallback: "MusicJsonCallback",
                 success: function success(data) {
-                    self.setState(function (prevState) {
-                        sessionStorage.setItem("TopList", JSON.stringify(data.data.topList));
-                        return { songList: data.data.topList };
-                    });
+                    sessionStorage.setItem("TopList", JSON.stringify(data.data.topList));
+                    self.props.setList(data.data.topList);
                 },
                 error: function error() {
                     alert('请检查网络！');
@@ -3475,10 +3471,11 @@ SongList.prototype = {
     },
     //根据ID获取100首歌曲列表
     getTopListFromID: function getTopListFromID(id, self) {
+        self.props.setDetail({});
         var detail = {};
         if (sessionStorage.getItem('ID' + id)) {
             detail = JSON.parse(sessionStorage.getItem('ID' + id));
-            self.setState({ detail: detail });
+            self.props.setDetail(detail);
         } else {
             _jquery2.default.ajax({
                 type: "get",
@@ -3490,7 +3487,7 @@ SongList.prototype = {
                     } else {
                         detail = JSON.parse(data);
                         sessionStorage.setItem('ID' + id, data);
-                        self.setState({ detail: detail });
+                        self.props.setDetail(detail);
                     }
                 },
                 error: function error() {
@@ -3523,7 +3520,7 @@ var _store = __webpack_require__(66);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(8);
 
 __webpack_require__(91);
 
@@ -3586,7 +3583,7 @@ _reactDom2.default.render(_react2.default.createElement(
  This source code is licensed under the MIT license found in the
  LICENSE file in the root directory of this source tree.
 */
-var f=__webpack_require__(7),p=__webpack_require__(10);__webpack_require__(6);var r=__webpack_require__(5);
+var f=__webpack_require__(7),p=__webpack_require__(11);__webpack_require__(6);var r=__webpack_require__(5);
 function t(a){for(var b=arguments.length-1,d="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,e=0;e<b;e++)d+="\x26args[]\x3d"+encodeURIComponent(arguments[e+1]);b=Error(d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var u={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function v(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}v.prototype.isReactComponent={};v.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?t("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};v.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function w(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}function x(){}x.prototype=v.prototype;var y=w.prototype=new x;y.constructor=w;f(y,v.prototype);y.isPureReactComponent=!0;function z(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}var A=z.prototype=new x;A.constructor=z;f(A,v.prototype);A.unstable_isAsyncReactComponent=!0;A.render=function(){return this.props.children};
@@ -3624,8 +3621,8 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var objectAssign$1 = __webpack_require__(7);
-var require$$0 = __webpack_require__(11);
-var emptyObject = __webpack_require__(10);
+var require$$0 = __webpack_require__(12);
+var emptyObject = __webpack_require__(11);
 var invariant = __webpack_require__(6);
 var emptyFunction = __webpack_require__(5);
 var checkPropTypes = __webpack_require__(14);
@@ -5369,7 +5366,7 @@ if (process.env.NODE_ENV === 'production') {
  LICENSE file in the root directory of this source tree.
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0);__webpack_require__(6);var l=__webpack_require__(16),n=__webpack_require__(7),ba=__webpack_require__(25),ca=__webpack_require__(5),da=__webpack_require__(10),ea=__webpack_require__(26),fa=__webpack_require__(27),ha=__webpack_require__(28),ia=__webpack_require__(29);
+var aa=__webpack_require__(0);__webpack_require__(6);var l=__webpack_require__(16),n=__webpack_require__(7),ba=__webpack_require__(25),ca=__webpack_require__(5),da=__webpack_require__(11),ea=__webpack_require__(26),fa=__webpack_require__(27),ha=__webpack_require__(28),ia=__webpack_require__(29);
 function w(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:w("227");
 function ja(a){switch(a){case "svg":return"http://www.w3.org/2000/svg";case "math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}
 var ka={Namespaces:{html:"http://www.w3.org/1999/xhtml",mathml:"http://www.w3.org/1998/Math/MathML",svg:"http://www.w3.org/2000/svg"},getIntrinsicNamespace:ja,getChildNamespace:function(a,b){return null==a||"http://www.w3.org/1999/xhtml"===a?ja(b):"http://www.w3.org/2000/svg"===a&&"foreignObject"===b?"http://www.w3.org/1999/xhtml":a}},la=null,oa={};
@@ -5699,13 +5696,13 @@ var invariant = __webpack_require__(6);
 var ExecutionEnvironment = __webpack_require__(16);
 var _assign = __webpack_require__(7);
 var EventListener = __webpack_require__(25);
-var require$$0 = __webpack_require__(11);
+var require$$0 = __webpack_require__(12);
 var hyphenateStyleName = __webpack_require__(58);
 var emptyFunction = __webpack_require__(5);
 var camelizeStyleName = __webpack_require__(60);
 var performanceNow = __webpack_require__(62);
 var propTypes = __webpack_require__(3);
-var emptyObject = __webpack_require__(10);
+var emptyObject = __webpack_require__(11);
 var checkPropTypes = __webpack_require__(14);
 var shallowEqual = __webpack_require__(26);
 var containsNode = __webpack_require__(27);
@@ -23137,7 +23134,7 @@ module.exports = performance || {};
 
 var emptyFunction = __webpack_require__(5);
 var invariant = __webpack_require__(6);
-var warning = __webpack_require__(11);
+var warning = __webpack_require__(12);
 var assign = __webpack_require__(7);
 
 var ReactPropTypesSecret = __webpack_require__(15);
@@ -23751,16 +23748,17 @@ var _redux = __webpack_require__(30);
 
 var store = (0, _redux.createStore)(function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    name: "asd"
+    hit_newsong: [],
+    detail: {}
   };
   var action = arguments[1];
 
   switch (action.type) {
-    case "SETNAME":
-      return Object.assign({}, state, { name: action.name });
+    case "SETRANKLIST":
+      return Object.assign({}, state, { hit_newsong: action.songList });
       break;
-    case "SETSKILL":
-      return Object.assign({}, state, { skill: action.skill });
+    case "SETDETAIL":
+      return Object.assign({}, state, { detail: action.detail });
       break;
     default:
       return state;
@@ -25612,7 +25610,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(19);
 
-var _PathUtils = __webpack_require__(8);
+var _PathUtils = __webpack_require__(9);
 
 var _createTransitionManager = __webpack_require__(20);
 
@@ -25989,7 +25987,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(19);
 
-var _PathUtils = __webpack_require__(8);
+var _PathUtils = __webpack_require__(9);
 
 var _createTransitionManager = __webpack_require__(20);
 
@@ -26393,7 +26391,7 @@ var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _PathUtils = __webpack_require__(8);
+var _PathUtils = __webpack_require__(9);
 
 var _LocationUtils = __webpack_require__(19);
 
@@ -27309,7 +27307,7 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(13);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(10);
 /* unused harmony reexport parsePath */
 /* unused harmony reexport createPath */
 
@@ -27332,7 +27330,7 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(48);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -27636,7 +27634,7 @@ var createBrowserHistory = function createBrowserHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(48);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -27954,7 +27952,7 @@ var createHashHistory = function createHashHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(24);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -28139,7 +28137,7 @@ var createMemoryHistory = function createMemoryHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_history_PathUtils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Router__ = __webpack_require__(22);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -28494,7 +28492,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -28556,7 +28554,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -28592,8 +28590,34 @@ var HitNewSong = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (HitNewSong.__proto__ || Object.getPrototypeOf(HitNewSong)).call(this, props));
 
-        _this.state = {
-            songList: []
+        _this.lazyLoad = function () {
+            var items = document.getElementsByClassName('listItems');
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var val = _step.value;
+
+                    if (document.documentElement.scrollTop + document.documentElement.clientHeight >= val.offsetTop) {
+                        val.children[0].children[0].src = val.children[0].children[0].getAttribute("url");
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
         };
         return _this;
     }
@@ -28604,59 +28628,63 @@ var HitNewSong = function (_React$Component) {
             return _react2.default.createElement(
                 "section",
                 { id: "HitNewSong", className: "hit-new-song", style: _RankListCss2.default.listBackGround },
-                this.state.songList.map(function (e, i) {
+                this.props.hit_newsong.map(function (e, i) {
                     return _react2.default.createElement(
-                        "div",
-                        { style: _RankListCss2.default.rankTab, key: e.id },
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { style: { display: "inline-block", position: 'relative' }, to: '/toplist/' + e.id },
-                            _react2.default.createElement("img", { alt: e.topTitle, src: e.picUrl, style: _RankListCss2.default.coverStyle }),
-                            _react2.default.createElement(
-                                "span",
-                                { style: _RankListCss2.default.listenCount },
-                                _react2.default.createElement("i", { style: _RankListCss2.default.earPhoneIcon }),
-                                songList.listenCountFilter(e.listenCount)
-                            )
-                        ),
+                        _reactRouterDom.Link,
+                        { style: { color: '#333' }, to: '/toplist/' + e.id, key: e.id },
                         _react2.default.createElement(
                             "div",
-                            { style: _RankListCss2.default.rTab },
+                            { style: _RankListCss2.default.rankTab, className: "listItems" },
                             _react2.default.createElement(
-                                "p",
-                                { style: _RankListCss2.default.listTitle },
-                                e.topTitle
+                                "div",
+                                { style: { display: "inline-block", position: 'relative' } },
+                                _react2.default.createElement("img", { alt: e.topTitle, url: e.picUrl, src: "#", style: _RankListCss2.default.coverStyle }),
+                                _react2.default.createElement(
+                                    "span",
+                                    { style: _RankListCss2.default.listenCount },
+                                    _react2.default.createElement("i", { style: _RankListCss2.default.earPhoneIcon }),
+                                    songList.listenCountFilter(e.listenCount)
+                                )
                             ),
                             _react2.default.createElement(
-                                "ul",
-                                { style: _RankListCss2.default.miniList },
-                                function () {
-                                    var miniList = [];
-                                    for (var _i = 1; _i <= 3; _i++) {
-                                        miniList.push(_react2.default.createElement(
-                                            "li",
-                                            { style: _RankListCss2.default.miniListSong, key: _i },
-                                            _react2.default.createElement(
-                                                "span",
-                                                { style: _RankListCss2.default.miniListOrder },
-                                                _i
-                                            ),
-                                            _react2.default.createElement(
-                                                "span",
-                                                { style: _RankListCss2.default.miniListSongName },
-                                                e.songList[_i - 1].songname
-                                            ),
-                                            _react2.default.createElement(
-                                                "span",
-                                                { style: _RankListCss2.default.miniListSingerName },
-                                                "- ",
-                                                e.songList[_i - 1].singername
-                                            )
-                                        ));
-                                    }
-                                    return miniList;
-                                }(),
-                                _react2.default.createElement("li", { style: _RankListCss2.default.arrow })
+                                "div",
+                                { style: _RankListCss2.default.rTab },
+                                _react2.default.createElement(
+                                    "p",
+                                    { style: _RankListCss2.default.listTitle },
+                                    e.topTitle
+                                ),
+                                _react2.default.createElement(
+                                    "ul",
+                                    { style: _RankListCss2.default.miniList },
+                                    function () {
+                                        var miniList = [];
+                                        for (var _i = 1; _i <= 3; _i++) {
+                                            miniList.push(_react2.default.createElement(
+                                                "li",
+                                                { style: _RankListCss2.default.miniListSong, key: _i },
+                                                _react2.default.createElement(
+                                                    "span",
+                                                    { style: _RankListCss2.default.miniListOrder },
+                                                    _i
+                                                ),
+                                                _react2.default.createElement(
+                                                    "span",
+                                                    { style: _RankListCss2.default.miniListSongName },
+                                                    e.songList[_i - 1].songname
+                                                ),
+                                                _react2.default.createElement(
+                                                    "span",
+                                                    { style: _RankListCss2.default.miniListSingerName },
+                                                    "- ",
+                                                    e.songList[_i - 1].singername
+                                                )
+                                            ));
+                                        }
+                                        return miniList;
+                                    }(),
+                                    _react2.default.createElement("li", { style: _RankListCss2.default.arrow })
+                                )
                             )
                         )
                     );
@@ -28664,9 +28692,23 @@ var HitNewSong = function (_React$Component) {
             );
         }
     }, {
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            songList.getCurrnetSongList(this);
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
-            songList.getCurrnetSongList(this);
+            var _this2 = this;
+
+            document.addEventListener("scroll", function () {
+                _this2.lazyLoad();
+            });
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {
+            this.lazyLoad();
         }
     }]);
 
@@ -28675,6 +28717,12 @@ var HitNewSong = function (_React$Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
     return state;
+}, function (dispatch) {
+    return {
+        setList: function setList(arr) {
+            dispatch({ type: 'SETRANKLIST', songList: arr });
+        }
+    };
 })(HitNewSong);
 
 /***/ }),
@@ -28692,6 +28740,7 @@ var style = {
         backgroundColor: "#eee"
     },
     rankTab: {
+        display: 'flex',
         margin: "1rem",
         backgroundColor: "#fff",
         position: "relative"
@@ -28753,9 +28802,11 @@ var style = {
     },
     coverStyle: {
         display: "inline-block",
-        minWidth: "300px",
-        minHeight: "300px",
-        marginTop: ".7rem"
+        width: "300px",
+        height: "300px",
+        marginTop: ".7rem",
+        backgroundImage: "url(./image/default_pic.jpg)",
+        backgroundRepeat: "no-repeat"
     },
     earPhoneIcon: {
         display: 'inline-block',
@@ -39043,7 +39094,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(8);
 
 var _react = __webpack_require__(0);
 
@@ -39053,9 +39104,17 @@ var _SongList = __webpack_require__(49);
 
 var _SongList2 = _interopRequireDefault(_SongList);
 
-var _TopListCss = __webpack_require__(126);
+var _TopListHeader = __webpack_require__(127);
 
-var _TopListCss2 = _interopRequireDefault(_TopListCss);
+var _TopListHeader2 = _interopRequireDefault(_TopListHeader);
+
+var _TopListArticle = __webpack_require__(128);
+
+var _TopListArticle2 = _interopRequireDefault(_TopListArticle);
+
+var _TopListFooter = __webpack_require__(129);
+
+var _TopListFooter2 = _interopRequireDefault(_TopListFooter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39070,201 +39129,27 @@ var songList = new _SongList2.default();
 var Toplist = function (_React$Component) {
     _inherits(Toplist, _React$Component);
 
-    function Toplist(props) {
+    function Toplist() {
         _classCallCheck(this, Toplist);
 
-        var _this = _possibleConstructorReturn(this, (Toplist.__proto__ || Object.getPrototypeOf(Toplist)).call(this, props));
-
-        _this.state = {
-            detail: {}
-        };
-        _this.fixedTop = function () {
-            var header = document.getElementById('header');
-            var headerHeight = header.offsetHeight;
-            var playBottom = document.getElementById('playBottom');
-            var playBottomHeight = playBottom.offsetHeight;
-            var playBottomOT = playBottom.offsetTop;
-            document.addEventListener('scroll', function (e) {
-                if (playBottomOT - document.documentElement.scrollTop + 50 <= 0) {
-                    header.style.position = "fixed";
-                    header.style.top = -480 + "px";
-                } else {
-                    header.style.position = "absolute";
-                    header.style.top = 132 + "px";
-                };
-            });
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (Toplist.__proto__ || Object.getPrototypeOf(Toplist)).apply(this, arguments));
     }
 
     _createClass(Toplist, [{
         key: "render",
         value: function render() {
-            var _this2 = this;
-
             return _react2.default.createElement(
                 "div",
                 null,
-                _react2.default.createElement(
-                    "header",
-                    { style: _TopListCss2.default.header, id: "header" },
-                    " ",
-                    _react2.default.createElement("img", { src: this.state.detail.topinfo ? this.state.detail.topinfo.pic_album : "#", style: _TopListCss2.default.cover }),
-                    _react2.default.createElement(
-                        "div",
-                        { style: _TopListCss2.default.headTitle },
-                        _react2.default.createElement(
-                            "div",
-                            { style: _TopListCss2.default.headIntroduce },
-                            _react2.default.createElement("img", { src: this.state.detail.topinfo ? this.state.detail.topinfo.pic_album : "#", style: _TopListCss2.default.coverImage }),
-                            _react2.default.createElement(
-                                "ul",
-                                { style: _TopListCss2.default.rtitle },
-                                _react2.default.createElement(
-                                    "li",
-                                    { style: _TopListCss2.default.rTopTitle },
-                                    this.state.detail.topinfo ? this.state.detail.topinfo.ListName : "加载中……"
-                                ),
-                                _react2.default.createElement(
-                                    "li",
-                                    { style: _TopListCss2.default.listDays },
-                                    "\u7B2C",
-                                    function () {
-                                        if (_this2.state.detail.day_of_year) {
-                                            return _this2.state.detail.day_of_year + '天';
-                                        } else {
-                                            return _this2.state.detail.date ? _this2.state.detail.date.split("_")[1] + "周" : "加载中……";
-                                        }
-                                    }()
-                                ),
-                                _react2.default.createElement(
-                                    "li",
-                                    { style: _TopListCss2.default.listUpdateTime },
-                                    this.state.detail.update_time,
-                                    " \u66F4\u65B0"
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { style: _TopListCss2.default.playBottom },
-                            _react2.default.createElement(
-                                "p",
-                                { style: _TopListCss2.default.playButton, id: "playBottom" },
-                                _react2.default.createElement("i", { style: _TopListCss2.default.triangle }),
-                                "\u64AD\u653E\u5168\u90E8"
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "article",
-                    null,
-                    _react2.default.createElement(
-                        "ul",
-                        { style: _TopListCss2.default.list },
-                        _react2.default.createElement(
-                            "span",
-                            { style: _TopListCss2.default.songCount },
-                            "\u6392\u884C\u699C  \u5171",
-                            this.state.detail.cur_song_num ? this.state.detail.cur_song_num : '加载中……',
-                            "\u9996"
-                        ),
-                        function () {
-                            var toplist = [];
-                            if (_this2.state.detail.songlist) {
-                                var songlist = _this2.state.detail.songlist;
-                                toplist.push(songlist.map(function (e, i) {
-                                    return _react2.default.createElement(
-                                        "li",
-                                        { style: _TopListCss2.default.listItem, key: e.data.songid },
-                                        _react2.default.createElement(
-                                            "ul",
-                                            { style: _TopListCss2.default.songOrder },
-                                            _react2.default.createElement(
-                                                "li",
-                                                { style: i < 3 ? { color: '#FF400B' } : {} },
-                                                i + 1
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            "ul",
-                                            { style: _TopListCss2.default.songDetail },
-                                            _react2.default.createElement(
-                                                "li",
-                                                { style: _TopListCss2.default.songName },
-                                                e.data.songname
-                                            ),
-                                            _react2.default.createElement(
-                                                "li",
-                                                { style: _TopListCss2.default.singerName },
-                                                e.data.singer.map(function (e, i) {
-                                                    if (i === 0) {
-                                                        return e.name;
-                                                    }
-                                                    return '/' + e.name;
-                                                })
-                                            )
-                                        )
-                                    );
-                                }));
-                                return toplist;
-                            } else {
-                                return;
-                            }
-                        }()
-                    )
-                ),
-                _react2.default.createElement(
-                    "footer",
-                    { style: _TopListCss2.default.footer },
-                    _react2.default.createElement(
-                        "p",
-                        { style: _TopListCss2.default.footerTitle },
-                        "\u7B80\u4ECB"
-                    ),
-                    function () {
-                        if (_this2.state.detail.topinfo) {
-                            var arr = [];
-                            arr = _this2.state.detail.topinfo.info.split('<br>').map(function (e, i) {
-                                if (e === "") return _react2.default.createElement("br", { key: i });
-                                return _react2.default.createElement(
-                                    "p",
-                                    { style: _TopListCss2.default.footerArticle, key: i },
-                                    e
-                                );
-                            });
-                            return arr;
-                        } else {
-                            return _react2.default.createElement(
-                                "p",
-                                null,
-                                "\u52A0\u8F7D\u4E2D\u2026\u2026"
-                            );
-                        }
-                    }(),
-                    _react2.default.createElement(
-                        "p",
-                        { style: _TopListCss2.default.footerTitle },
-                        _react2.default.createElement("img", { src: "./image/logo.svg", style: _TopListCss2.default.footerImg })
-                    ),
-                    _react2.default.createElement(
-                        "p",
-                        { style: _TopListCss2.default.footerTitle },
-                        "QQ\u97F3\u4E50"
-                    )
-                )
+                _react2.default.createElement(_TopListHeader2.default, null),
+                _react2.default.createElement(_TopListArticle2.default, null),
+                _react2.default.createElement(_TopListFooter2.default, null)
             );
         }
     }, {
         key: "componentWillMount",
         value: function componentWillMount() {
             songList.getTopListFromID(this.props.match.params.id, this);
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.fixedTop();
         }
     }]);
 
@@ -39274,7 +39159,11 @@ var Toplist = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(function (state) {
     return state;
 }, function (dispatch) {
-    return {};
+    return {
+        setDetail: function setDetail(obj) {
+            dispatch({ type: 'SETDETAIL', detail: obj });
+        }
+    };
 })(Toplist);
 
 /***/ }),
@@ -39287,7 +39176,6 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
 var style = {
     header: {
         width: '100%',
@@ -39313,7 +39201,10 @@ var style = {
     coverImage: {
         width: '400px',
         height: '400px',
-        display: 'inline-block'
+        display: 'inline-block',
+        backgroundImage: "url(./image/default_pic.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover"
     },
     rtitle: {
         display: 'inline-block',
@@ -39420,6 +39311,348 @@ var style = {
 };
 
 exports.default = style;
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRedux = __webpack_require__(8);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TopListCss = __webpack_require__(126);
+
+var _TopListCss2 = _interopRequireDefault(_TopListCss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopListHeader = function (_React$Component) {
+    _inherits(TopListHeader, _React$Component);
+
+    function TopListHeader(props) {
+        _classCallCheck(this, TopListHeader);
+
+        var _this = _possibleConstructorReturn(this, (TopListHeader.__proto__ || Object.getPrototypeOf(TopListHeader)).call(this, props));
+
+        _this.fixedTop = function () {
+            var header = document.getElementById('header');
+            var headerHeight = header.offsetHeight;
+            var playBottom = document.getElementById('playBottom');
+            var playBottomHeight = playBottom.offsetHeight;
+            var playBottomOT = playBottom.offsetTop;
+            document.addEventListener('scroll', function (e) {
+                if (playBottomOT - document.documentElement.scrollTop + 50 <= 0) {
+                    header.style.position = "fixed";
+                    header.style.top = -480 + "px";
+                } else {
+                    header.style.position = "absolute";
+                    header.style.top = 132 + "px";
+                };
+            });
+        };
+        return _this;
+    }
+
+    _createClass(TopListHeader, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                "header",
+                { style: _TopListCss2.default.header, id: "header" },
+                " ",
+                _react2.default.createElement("img", { src: this.props.detail.topinfo ? this.props.detail.topinfo.pic_album : "#", style: _TopListCss2.default.cover }),
+                _react2.default.createElement(
+                    "div",
+                    { style: _TopListCss2.default.headTitle },
+                    _react2.default.createElement(
+                        "div",
+                        { style: _TopListCss2.default.headIntroduce },
+                        _react2.default.createElement("img", { src: this.props.detail.topinfo ? this.props.detail.topinfo.pic_album : "#", style: _TopListCss2.default.coverImage }),
+                        _react2.default.createElement(
+                            "ul",
+                            { style: _TopListCss2.default.rtitle },
+                            _react2.default.createElement(
+                                "li",
+                                { style: _TopListCss2.default.rTopTitle },
+                                this.props.detail.topinfo ? this.props.detail.topinfo.ListName : "加载中……"
+                            ),
+                            _react2.default.createElement(
+                                "li",
+                                { style: _TopListCss2.default.listDays },
+                                function () {
+                                    if (_this2.props.detail.day_of_year) {
+                                        return '第' + _this2.props.detail.day_of_year + '天';
+                                    } else {
+                                        return _this2.props.detail.date ? '第' + _this2.props.detail.date.split("_")[1] + "周" : "加载中……";
+                                    }
+                                }()
+                            ),
+                            _react2.default.createElement(
+                                "li",
+                                { style: _TopListCss2.default.listUpdateTime },
+                                this.props.detail.update_time ? this.props.detail.update_time + " \u66F4\u65B0" : "\u52A0\u8F7D\u4E2D"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { style: _TopListCss2.default.playBottom },
+                        _react2.default.createElement(
+                            "p",
+                            { style: _TopListCss2.default.playButton, id: "playBottom" },
+                            _react2.default.createElement("i", { style: _TopListCss2.default.triangle }),
+                            "\u64AD\u653E\u5168\u90E8"
+                        )
+                    )
+                )
+            );
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.fixedTop();
+        }
+    }]);
+
+    return TopListHeader;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(function (state) {
+    return state;
+})(TopListHeader);
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRedux = __webpack_require__(8);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TopListCss = __webpack_require__(126);
+
+var _TopListCss2 = _interopRequireDefault(_TopListCss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopListArticle = function (_React$Component) {
+    _inherits(TopListArticle, _React$Component);
+
+    function TopListArticle() {
+        _classCallCheck(this, TopListArticle);
+
+        return _possibleConstructorReturn(this, (TopListArticle.__proto__ || Object.getPrototypeOf(TopListArticle)).apply(this, arguments));
+    }
+
+    _createClass(TopListArticle, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                "article",
+                null,
+                _react2.default.createElement(
+                    "ul",
+                    { style: _TopListCss2.default.list },
+                    _react2.default.createElement(
+                        "span",
+                        { style: _TopListCss2.default.songCount },
+                        this.props.detail.cur_song_num ? "\u6392\u884C\u699C  \u5171" + this.props.detail.cur_song_num + "\u9996" : '加载中……'
+                    ),
+                    function () {
+                        var toplist = [];
+                        if (_this2.props.detail.songlist) {
+                            var songlist = _this2.props.detail.songlist;
+                            toplist.push(songlist.map(function (e, i) {
+                                return _react2.default.createElement(
+                                    "li",
+                                    { style: _TopListCss2.default.listItem, key: e.data.songid },
+                                    _react2.default.createElement(
+                                        "ul",
+                                        { style: _TopListCss2.default.songOrder },
+                                        _react2.default.createElement(
+                                            "li",
+                                            { style: i < 3 ? { color: '#FF400B' } : {} },
+                                            i + 1
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        "ul",
+                                        { style: _TopListCss2.default.songDetail },
+                                        _react2.default.createElement(
+                                            "li",
+                                            { style: _TopListCss2.default.songName },
+                                            e.data.songname
+                                        ),
+                                        _react2.default.createElement(
+                                            "li",
+                                            { style: _TopListCss2.default.singerName },
+                                            e.data.singer.map(function (e, i) {
+                                                if (i === 0) {
+                                                    return e.name;
+                                                }
+                                                return '/' + e.name;
+                                            })
+                                        )
+                                    )
+                                );
+                            }));
+                            return toplist;
+                        } else {
+                            return;
+                        }
+                    }(),
+                    _react2.default.createElement(
+                        "li",
+                        { style: this.props.detail.songlist ? { display: 'none' } : { display: 'block' } },
+                        _react2.default.createElement(
+                            "p",
+                            { style: { width: "400px", margin: "200px auto" } },
+                            "\u52A0\u8F7D\u4E2D\u2026\u2026"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TopListArticle;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(function (state) {
+    return state;
+})(TopListArticle);
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRedux = __webpack_require__(8);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TopListCss = __webpack_require__(126);
+
+var _TopListCss2 = _interopRequireDefault(_TopListCss);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopListFooter = function (_React$Component) {
+    _inherits(TopListFooter, _React$Component);
+
+    function TopListFooter() {
+        _classCallCheck(this, TopListFooter);
+
+        return _possibleConstructorReturn(this, (TopListFooter.__proto__ || Object.getPrototypeOf(TopListFooter)).apply(this, arguments));
+    }
+
+    _createClass(TopListFooter, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                "footer",
+                { style: _TopListCss2.default.footer },
+                _react2.default.createElement(
+                    "p",
+                    { style: _TopListCss2.default.footerTitle },
+                    "\u7B80\u4ECB"
+                ),
+                function () {
+                    if (_this2.props.detail.topinfo) {
+                        var arr = [];
+                        arr = _this2.props.detail.topinfo.info.split('<br>').map(function (e, i) {
+                            if (e === "") return _react2.default.createElement("br", { key: i });
+                            return _react2.default.createElement(
+                                "p",
+                                { style: _TopListCss2.default.footerArticle, key: i },
+                                e
+                            );
+                        });
+                        return arr;
+                    } else {
+                        return _react2.default.createElement(
+                            "p",
+                            null,
+                            "\u52A0\u8F7D\u4E2D\u2026\u2026"
+                        );
+                    }
+                }(),
+                _react2.default.createElement(
+                    "p",
+                    { style: _TopListCss2.default.footerTitle },
+                    _react2.default.createElement("img", { src: "./image/logo.svg", style: _TopListCss2.default.footerImg })
+                ),
+                _react2.default.createElement(
+                    "p",
+                    { style: _TopListCss2.default.footerTitle },
+                    "QQ\u97F3\u4E50"
+                )
+            );
+        }
+    }]);
+
+    return TopListFooter;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(function (state) {
+    return state;
+})(TopListFooter);
 
 /***/ })
 /******/ ]);

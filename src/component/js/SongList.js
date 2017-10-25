@@ -37,9 +37,7 @@ SongList.prototype = {
     getCurrnetSongList: function(self) {
         if (sessionStorage.getItem("TopList")) {
             let data = JSON.parse(sessionStorage.getItem("TopList"));
-            self.setState((prevState) => {
-                return { songList: data }
-            })
+            self.props.setList(data);
         } else {
             $.ajax({
                 type: "get",
@@ -48,10 +46,8 @@ SongList.prototype = {
                 jsonp: "callback",
                 jsonpCallback: "MusicJsonCallback",
                 success: function(data) {
-                    self.setState((prevState) => {
-                        sessionStorage.setItem("TopList", JSON.stringify(data.data.topList));
-                        return { songList: data.data.topList }
-                    })
+                    sessionStorage.setItem("TopList", JSON.stringify(data.data.topList));
+                    self.props.setList(data.data.topList);
                 },
                 error: function() {
                     alert('请检查网络！');
@@ -66,10 +62,11 @@ SongList.prototype = {
     },
     //根据ID获取100首歌曲列表
     getTopListFromID: function(id,self) {
+        self.props.setDetail({})
         let detail ={};
         if (sessionStorage.getItem('ID' + id)) {
             detail = JSON.parse(sessionStorage.getItem('ID' + id));
-            self.setState({detail})
+            self.props.setDetail(detail)
         } else {
             $.ajax({
                 type: "get",
@@ -80,7 +77,7 @@ SongList.prototype = {
                     else {
                         detail=JSON.parse(data);
                         sessionStorage.setItem('ID' + id, data);
-                        self.setState({detail})
+                        self.props.setDetail(detail)
                     }
                 },
                 error: function() {
