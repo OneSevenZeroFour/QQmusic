@@ -12,11 +12,27 @@ class Toplist extends React.Component {
         this.state = {
             detail: {}
         }
+        this.fixedTop=()=>{
+            const header=document.getElementById('header');
+            const headerHeight = header.offsetHeight;
+            const playBottom = document.getElementById('playBottom');
+            const playBottomHeight = playBottom.offsetHeight;
+            const playBottomOT = playBottom.offsetTop;
+            document.addEventListener('scroll',(e)=>{
+                if(playBottomOT-document.documentElement.scrollTop+50<=0){
+                    header.style.position=`fixed`;
+                    header.style.top=`${-480}px`;
+                }else{
+                    header.style.position=`absolute`;
+                    header.style.top=`${132}px`;
+                };
+            })
+        }
     }
     render() {
         return ( 
             <div>
-                <header style = {style.header}> { /*pic_album*/ } 
+                <header style = {style.header} id="header"> { /*pic_album*/ } 
                     <img src={this.state.detail.topinfo?this.state.detail.topinfo.pic_album:"#"} style={style.cover} />
                     <div style={style.headTitle}>
                         <div style={style.headIntroduce} >
@@ -36,7 +52,7 @@ class Toplist extends React.Component {
                             </ul>
                         </div>
                         <div style={style.playBottom}>
-                            <p style={style.playButton}><i style={style.triangle}></i>播放全部</p>
+                            <p style={style.playButton}  id="playBottom"><i style={style.triangle}></i>播放全部</p>
                         </div>
                     </div>
                 </header> 
@@ -69,8 +85,6 @@ class Toplist extends React.Component {
                             }
                         })()
                         }
-                        
-
                     </ul>
                 </article>
                 <footer style={style.footer}>
@@ -96,9 +110,9 @@ class Toplist extends React.Component {
     }
     componentWillMount() {
         songList.getTopListFromID(this.props.match.params.id, this)
-        setTimeout(() => {
-            console.log(this.state);
-        }, 500)
+    }
+    componentDidMount(){
+        this.fixedTop()
     }
 }
 

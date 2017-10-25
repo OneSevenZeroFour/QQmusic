@@ -3403,7 +3403,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _jquery = __webpack_require__(123);
+var _jquery = __webpack_require__(124);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -3434,7 +3434,6 @@ SongList.prototype = {
                         sessionStorage.setItem(url, JSON.stringify(data.songlist));
                         return { songList: prevState.songList };
                     });
-                    console.log(self);
                 },
                 error: function error() {
                     alert('fail');
@@ -3448,7 +3447,6 @@ SongList.prototype = {
         if (sessionStorage.getItem("TopList")) {
             var data = JSON.parse(sessionStorage.getItem("TopList"));
             self.setState(function (prevState) {
-                console.log(data);
                 return { songList: data };
             });
         } else {
@@ -3460,7 +3458,6 @@ SongList.prototype = {
                 jsonpCallback: "MusicJsonCallback",
                 success: function success(data) {
                     self.setState(function (prevState) {
-                        console.log(data.data.topList);
                         sessionStorage.setItem("TopList", JSON.stringify(data.data.topList));
                         return { songList: data.data.topList };
                     });
@@ -3481,7 +3478,6 @@ SongList.prototype = {
         var detail = {};
         if (sessionStorage.getItem('ID' + id)) {
             detail = JSON.parse(sessionStorage.getItem('ID' + id));
-            console.log(detail);
             self.setState({ detail: detail });
         } else {
             _jquery2.default.ajax({
@@ -3493,7 +3489,6 @@ SongList.prototype = {
                         console.log(data);
                     } else {
                         detail = JSON.parse(data);
-                        console.log(detail);
                         sessionStorage.setItem('ID' + id, data);
                         self.setState({ detail: detail });
                     }
@@ -3538,7 +3533,7 @@ var _RankList = __webpack_require__(121);
 
 var _RankList2 = _interopRequireDefault(_RankList);
 
-var _Toplist = __webpack_require__(124);
+var _Toplist = __webpack_require__(125);
 
 var _Toplist2 = _interopRequireDefault(_Toplist);
 
@@ -28546,15 +28541,6 @@ var RankList = function (_React$Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return state;
-}, function (dispatch) {
-  return {
-    sendName: function sendName(event) {
-      dispatch({ type: "SETNAME", name: event.target.value });
-    },
-    sendSkill: function sendSkill(event) {
-      dispatch({ type: "SETSKILL", skill: event.target.value });
-    }
-  };
 })(RankList);
 
 /***/ }),
@@ -28578,7 +28564,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(41);
 
-var _RankListCss = __webpack_require__(125);
+var _RankListCss = __webpack_require__(123);
 
 var _RankListCss2 = _interopRequireDefault(_RankListCss);
 
@@ -28689,19 +28675,103 @@ var HitNewSong = function (_React$Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
     return state;
-}, function (dispatch) {
-    return {
-        sendName: function sendName(event) {
-            dispatch({ type: "SETNAME", name: event.target.value });
-        },
-        sendSkill: function sendSkill(event) {
-            dispatch({ type: "SETSKILL", skill: event.target.value });
-        }
-    };
 })(HitNewSong);
 
 /***/ }),
 /* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var style = {
+    listBackGround: {
+        backgroundColor: "#eee"
+    },
+    rankTab: {
+        margin: "1rem",
+        backgroundColor: "#fff",
+        position: "relative"
+    },
+    rTab: {
+        display: "inline-block",
+        verticalAlign: "top",
+        margin: "0 3rem",
+        minWidth: "496px",
+        width: '50%',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+    },
+    listTitle: {
+        margin: "1rem 0",
+        fontSize: "0.9em"
+    },
+    miniList: {
+        fontSize: "0.8em"
+    },
+    miniListOrder: {
+        color: "#aaa"
+    },
+    miniListSongName: {
+        padding: "0 2rem",
+
+        overflow: 'hidden'
+    },
+    miniListSingerName: {
+        color: "#aaa",
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+
+    },
+    miniListSong: {
+        margin: '0 0 .5rem 0',
+
+        display: "flex"
+    },
+    arrow: {
+        position: "absolute",
+        right: "1rem",
+        top: "50%",
+        marginTop: "-1rem",
+        width: "1rem",
+        height: "1rem",
+        borderRight: ".4rem solid #b2b2b2",
+        borderBottom: ".4rem solid #b2b2b2",
+        transform: "rotate(-45deg)"
+    },
+    listenCount: {
+        position: 'absolute',
+        left: '.5rem',
+        bottom: "1rem",
+        color: '#fff',
+        fontSize: '2rem'
+    },
+    coverStyle: {
+        display: "inline-block",
+        minWidth: "300px",
+        minHeight: "300px",
+        marginTop: ".7rem"
+    },
+    earPhoneIcon: {
+        display: 'inline-block',
+        backgroundImage: "url(./image/list_sprite.png)",
+        backgroundSize: "4rem 7rem",
+        width: "1.8rem",
+        height: "1.2rem",
+        backgroundPosition: '0 1.2rem',
+        marginRight: '.5rem'
+    }
+};
+
+exports.default = style;
+
+/***/ }),
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -38961,7 +39031,7 @@ return jQuery;
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39008,6 +39078,22 @@ var Toplist = function (_React$Component) {
         _this.state = {
             detail: {}
         };
+        _this.fixedTop = function () {
+            var header = document.getElementById('header');
+            var headerHeight = header.offsetHeight;
+            var playBottom = document.getElementById('playBottom');
+            var playBottomHeight = playBottom.offsetHeight;
+            var playBottomOT = playBottom.offsetTop;
+            document.addEventListener('scroll', function (e) {
+                if (playBottomOT - document.documentElement.scrollTop + 50 <= 0) {
+                    header.style.position = "fixed";
+                    header.style.top = -480 + "px";
+                } else {
+                    header.style.position = "absolute";
+                    header.style.top = 132 + "px";
+                };
+            });
+        };
         return _this;
     }
 
@@ -39021,7 +39107,7 @@ var Toplist = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "header",
-                    { style: _TopListCss2.default.header },
+                    { style: _TopListCss2.default.header, id: "header" },
                     " ",
                     _react2.default.createElement("img", { src: this.state.detail.topinfo ? this.state.detail.topinfo.pic_album : "#", style: _TopListCss2.default.cover }),
                     _react2.default.createElement(
@@ -39064,7 +39150,7 @@ var Toplist = function (_React$Component) {
                             { style: _TopListCss2.default.playBottom },
                             _react2.default.createElement(
                                 "p",
-                                { style: _TopListCss2.default.playButton },
+                                { style: _TopListCss2.default.playButton, id: "playBottom" },
                                 _react2.default.createElement("i", { style: _TopListCss2.default.triangle }),
                                 "\u64AD\u653E\u5168\u90E8"
                             )
@@ -39173,12 +39259,12 @@ var Toplist = function (_React$Component) {
     }, {
         key: "componentWillMount",
         value: function componentWillMount() {
-            var _this3 = this;
-
             songList.getTopListFromID(this.props.match.params.id, this);
-            setTimeout(function () {
-                console.log(_this3.state);
-            }, 500);
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.fixedTop();
         }
     }]);
 
@@ -39192,99 +39278,6 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 })(Toplist);
 
 /***/ }),
-/* 125 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var style = {
-    listBackGround: {
-        backgroundColor: "#eee"
-    },
-    rankTab: {
-        margin: "1rem",
-        backgroundColor: "#fff",
-        position: "relative"
-    },
-    rTab: {
-        display: "inline-block",
-        verticalAlign: "top",
-        margin: "0 3rem",
-        minWidth: "496px",
-        width: '50%',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
-    },
-    listTitle: {
-        margin: "1rem 0",
-        fontSize: "0.9em"
-    },
-    miniList: {
-        fontSize: "0.8em"
-    },
-    miniListOrder: {
-        color: "#aaa"
-    },
-    miniListSongName: {
-        padding: "0 2rem",
-
-        overflow: 'hidden'
-    },
-    miniListSingerName: {
-        color: "#aaa",
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis'
-
-    },
-    miniListSong: {
-        margin: '0 0 .5rem 0',
-
-        display: "flex"
-    },
-    arrow: {
-        position: "absolute",
-        right: "1rem",
-        top: "50%",
-        marginTop: "-1rem",
-        width: "1rem",
-        height: "1rem",
-        borderRight: ".4rem solid #b2b2b2",
-        borderBottom: ".4rem solid #b2b2b2",
-        transform: "rotate(-45deg)"
-    },
-    listenCount: {
-        position: 'absolute',
-        left: '.5rem',
-        bottom: "1rem",
-        color: '#fff',
-        fontSize: '2rem'
-    },
-    coverStyle: {
-        display: "inline-block",
-        minWidth: "300px",
-        minHeight: "300px",
-        marginTop: ".7rem"
-    },
-    earPhoneIcon: {
-        display: 'inline-block',
-        backgroundImage: "url(./image/list_sprite.png)",
-        backgroundSize: "4rem 7rem",
-        width: "1.8rem",
-        height: "1.2rem",
-        backgroundPosition: '0 1.2rem',
-        marginRight: '.5rem'
-    }
-};
-
-exports.default = style;
-
-/***/ }),
 /* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39294,6 +39287,7 @@ exports.default = style;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
 var style = {
     header: {
         width: '100%',
@@ -39307,7 +39301,7 @@ var style = {
     cover: {
         width: '100%',
         height: '100%',
-        WebkitFilter: 'blur(5rem)',
+        WebkitFilter: 'blur(4rem)',
         position: 'absolute',
         zIndex: '-1'
     },

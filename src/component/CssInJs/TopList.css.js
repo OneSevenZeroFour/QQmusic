@@ -1,3 +1,4 @@
+
 let style = {
     header:{
         width:'100%',
@@ -11,7 +12,7 @@ let style = {
     cover:{
         width:'100%',
         height:'100%',
-        WebkitFilter: 'blur(5rem)',
+        WebkitFilter: 'blur(4rem)',
         position:'absolute',
         zIndex:'-1'
     },
