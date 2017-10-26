@@ -31,3 +31,20 @@ li,ul,ol{
 a{
 	text-decoration: none
 }
+.transition-In{
+    animation-name:lineIn;
+    animation-duration: 1s;
+}
+.transition-Out{
+    animation-name:lineOut;
+    animation-duration: 1s;
+}
+@keyframes lineIn{
+    from {transform: translateX(100%);opacity: 0 }
+    25%{opacity: .5 }
+    to {transform: translateX(0); opacity: 1}
+}
+@keyframes lineOut{
+    from {transform: translateX(0); }
+    to {transform: translateX(-100%); }
+}

@@ -6,7 +6,7 @@ import style from "./CssInJs/TopList.css.js"
 class TopListArticle extends React.Component {
     render() {
         return ( 
-                <article>
+                <article className='transition-In'>
                     <ul style={style.list}>
                         <span style={style.songCount}>{this.props.detail.cur_song_num?`排行榜  共${this.props.detail.cur_song_num}首`:'加载中……'}</span>
                         {(()=>{

@@ -6,7 +6,7 @@ import style from "./CssInJs/TopList.css.js"
 class TopListFooter extends React.Component {
     render() {
         return ( 
-                <footer style={style.footer}>
+                <footer style={style.footer} className='transition-In'>
                     <p style={style.footerTitle}>简介</p>
                     {(()=>{
                         if(this.props.detail.topinfo){

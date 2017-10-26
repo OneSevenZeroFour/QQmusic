@@ -18,8 +18,12 @@ ReactDOM.render(
 			    		<a href="javascript:;" className="btn_download">下载APP</a>
 			    	</div>
 			    </div>
-                <Route path="/ranklist" component={RankList}></Route> 
-                <Route exact path="/toplist/:id" component={Toplist}></Route> 
+			    <div>
+                	<Route path="/ranklist" component={RankList}></Route> 
+			    </div>
+			    <div>
+                	<Route exact path="/toplist/:id" component={Toplist}></Route> 
+			    </div>
 			</div>
   		</Provider>
 	 </Router>

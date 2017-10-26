@@ -13,7 +13,7 @@ class RankList extends React.Component {
 	}
   render() {
     return (
-    	<article id="RankList" className="rank-list" style={style}>
+    	<article id="RankList" className="rank-list transition-In" style={style}>
         <HitNewSong/>
 	    </article>
     )
