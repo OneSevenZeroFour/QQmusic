@@ -16,7 +16,9 @@ class Xsearch extends React.Component{
 	    	songList: [],
 	    	isSearch: true,
 	    	isCanGet: true,
-	    	isRemindDivShow:true
+	    	isRemindDivShow:true,
+	    	recordList: [],
+	    	isrecordList:true
 	    }
 	    this.submit= ()=>{
 	    	return false
@@ -24,7 +26,8 @@ class Xsearch extends React.Component{
 	    this.show=()=>{
 	      this.setState({
 	      	isshow: true,
-	      	isRemindDivShow:true
+	      	isRemindDivShow:true,
+	      	isrecordList:true
 	      })
 
 	    }
@@ -32,8 +35,10 @@ class Xsearch extends React.Component{
 	      this.setState({
 	      	isshow: false,
 	      	isvalue:"",
-	      	isRemindDivShow:true
+	      	isRemindDivShow:true,
+	      	isrecordList:false
 	      })
+	       
 	    }
 	    this.showvalue=(e)=>{
 	    	this.setState({
@@ -46,8 +51,10 @@ class Xsearch extends React.Component{
 		getSearhListAjax(){
     		let self = this;
     		this.setState({
-	            isRemindDivShow:false
+	            isRemindDivShow:false,
+	            isrecordList:false
 	        });
+	        this.addSearchRecord(document.getElementsByClassName('search_input')[0].value);
     		let offset = (this.state.pageNo - 1) * 20;
 	    	let searchText = document.getElementsByClassName('search_input')[0].value;
 	    	let isSearch = this.state.isSearch;
@@ -59,9 +66,9 @@ class Xsearch extends React.Component{
 	                self.setState({
 	                    songList: []
 	                });
-	                console.log(777)
+	              
 	            }
-	            console.log(888)
+	           
 		    	axios.get(`https://api.imjad.cn/cloudmusic/?type=search&offset=${offset}&s=${searchText}`).then((response) => {
 	                self.setState({
 	                    
@@ -69,9 +76,6 @@ class Xsearch extends React.Component{
 	                    songList: response.data.result.songs,
 	                    isSearch: true
 	                });
-	                console.log(666)
-	                console.log(searchText);
-	                console.log(self.state.songList)
 	            }).catch(function (error) {
 	                self.setState({
 	                    isCanGet: true,
@@ -80,29 +84,80 @@ class Xsearch extends React.Component{
 	            });
 	    	}
 	    }
+
 	    //监听键盘事件
 	    keyboardListener(event) {
 	        if (event.keyCode === 13) {
 	        	this.setState({
-	                isRemindDivShow:false,
+	                isRemindDivShow:false
 	            });
-
+	        	this.addSearchRecord(document.getElementsByClassName('search_input')[0].value);
 	            this.getSearhListAjax();
+	             console.log(this.state.isrecordList)
 	        }
 	    }
+
 	    //热搜
 	    fastSearch(e){
-	    	console.log(e.target.innerText)
+	    	
 	    	document.getElementsByClassName('search_input')[0].value=e.target.innerText;
 	        this.setState({
-	            isRemindDivShow:false
+	            isRemindDivShow:false,
 	        });
+	         this.addSearchRecord(e.target.innerText);
 	        this.show();
 	        this.getSearhListAjax();
 	    }
+
+	    //根据搜索记录搜索
+	   	SearchRecord(e){
+	   		
+	   		document.getElementsByClassName('search_input')[0].value=e.target.innerText;
+	        this.setState({
+	            isRemindDivShow:false,
+	        });
+	         this.addSearchRecord(e.target.innerText);
+	        this.show();
+	        this.getSearhListAjax();
+	   	}
+
+	    //添加搜索记录
+	    addSearchRecord(recordStr) {
+	        let recordList=this.state.recordList;        
+	        const isCanAdd = !recordList.some((item) => {
+	            return item === recordStr;
+	        });
+	        if (isCanAdd&&recordStr!=='') { 
+	            recordList.unshift(recordStr);
+	        }
+	        this.setState({
+	            recordList
+	        });
+	        localStorage["yqq_search_history"] = this.state.recordList.join(",");
+	    }
+
+	    //移除记录
+	    removeRecord(record) {
+	        const recordList = this.state.recordList.filter((item) => {
+	            return record !== item;
+	        });
+	        this.setState({
+	            recordList
+	        });
+	        localStorage["yqq_search_history"] = recordList.join(",");        
+	    }
+
+	    //移除所有历史记录
+	    clearRecord(){
+	        localStorage["yqq_search_history"]="";
+	        this.setState({
+	            recordList:[]
+	        });
+	    }
+
 	componentDidMount(){
 		
-	   console.log(this.state.songList)
+	   
 	 }
 	render() {
 	    return (
@@ -133,8 +188,30 @@ class Xsearch extends React.Component{
 		       			<a onClick={this.fastSearch.bind(this)} href="javascript:;" className="tag_s">流着泪说分手</a>
 		       		</div>
 		       </div>
-		       <div style={{display:this.state.isRemindDivShow?'none':'block'}}>
-					<div className="search_result">
+		       <div>
+		       		<div style={{display:this.state.isrecordList?'block':'none'}}>
+						<ul className="recordList" >
+	                        {
+	                            this.state.recordList.map((item,index) => {
+	                                return (
+	                                    <li onClick={this.SearchRecord.bind(this)} className="recordItem border-bottom" key={index}>
+	                                        <span className="icon-recent"></span>
+	                                        <p>{item}</p>
+	                                        <span onClick={this.removeRecord.bind(this, item)} className="icon-close">
+
+	                                        </span>
+	                                    </li>
+	                                )
+	                            })
+	                        }
+	                    </ul>
+	                    <h4 style={{display:this.state.recordList.length>0?'block':'none'}} className="title-search-history border-bottom"><span onClick={this.clearRecord.bind(this)} className="cleanRecord" >清空搜索历史</span>
+	                    </h4>
+		       		</div>
+                    
+
+
+					<div className="search_result"  style={{display:this.state.isRemindDivShow?'none':'block'}}>
 						<ul className="search_content" >
 					       	{
 					       		
@@ -142,7 +219,10 @@ class Xsearch extends React.Component{
 					       		if(this.state.songList!=[]){
 								return (
                                     <li className="qqMusic-searchList-item border-bottom" key={index}>
-                                    	<span className="left"><img src={item.al.picUrl} /></span>
+                                    	<span className="left" style={{position:"relative"}}>
+                                    		<img src={item.al.picUrl?item.al.picUrl:""} />
+                                    		<span className="icon icon_play"></span>
+                                    	</span>
                                     	<div className="left person">
                                     		<h6 className="qqMusic-searchList-item-title">{item.name}</h6>
                                         	<p className="qqMusic-searchList-item-singer">{item.ar[0].name}</p>
@@ -154,8 +234,8 @@ class Xsearch extends React.Component{
 					       		}
                                 
                             })
-						}
-					</ul>
+							}
+						</ul>
 					</div>
 		       </div>
 		       
