@@ -39467,6 +39467,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(42);
+
 var _TopListCss = __webpack_require__(25);
 
 var _TopListCss2 = _interopRequireDefault(_TopListCss);
@@ -39510,34 +39512,38 @@ var TopListArticle = function (_React$Component) {
                             var songlist = _this2.props.detail.songlist;
                             toplist.push(songlist.map(function (e, i) {
                                 return _react2.default.createElement(
-                                    "li",
-                                    { style: _TopListCss2.default.listItem, key: e.data.songid },
+                                    _reactRouterDom.Link,
+                                    { style: { color: '#333' }, to: '/player/' + e.data.songid + '/' + e.data.albumid + '/' + e.data.songmid, key: e.data.songid },
                                     _react2.default.createElement(
-                                        "ul",
-                                        { style: _TopListCss2.default.songOrder },
+                                        "li",
+                                        { style: _TopListCss2.default.listItem },
                                         _react2.default.createElement(
-                                            "li",
-                                            { style: i < 3 ? { color: '#FF400B' } : {} },
-                                            i + 1
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        "ul",
-                                        { style: _TopListCss2.default.songDetail },
-                                        _react2.default.createElement(
-                                            "li",
-                                            { style: _TopListCss2.default.songName },
-                                            e.data.songname
+                                            "ul",
+                                            { style: _TopListCss2.default.songOrder },
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: i < 3 ? { color: '#FF400B' } : {} },
+                                                i + 1
+                                            )
                                         ),
                                         _react2.default.createElement(
-                                            "li",
-                                            { style: _TopListCss2.default.singerName },
-                                            e.data.singer.map(function (e, i) {
-                                                if (i === 0) {
-                                                    return e.name;
-                                                }
-                                                return '/' + e.name;
-                                            })
+                                            "ul",
+                                            { style: _TopListCss2.default.songDetail },
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: _TopListCss2.default.songName },
+                                                e.data.songname
+                                            ),
+                                            _react2.default.createElement(
+                                                "li",
+                                                { style: _TopListCss2.default.singerName },
+                                                e.data.singer.map(function (e, i) {
+                                                    if (i === 0) {
+                                                        return e.name;
+                                                    }
+                                                    return '/' + e.name;
+                                                })
+                                            )
                                         )
                                     )
                                 );
