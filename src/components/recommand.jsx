@@ -1,16 +1,39 @@
 import React from "react";
-import App from "./carousel.jsx"
+import { Carousel, Grid } from 'antd-mobile';
 import "../CSS/recommand.css"
-
 
 class Xrecommand extends React.Component{
 	constructor(props) {
 	    super(props);
 	}
 	render() {
+		const imgList = [
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136996.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/137001.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136837.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136785.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136105.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136190.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/136903.jpg",
+            "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/118122.jpg"
+        ];
 	    return (
 	      <div>
-	      	<App/>
+	      	<Carousel
+                    className="slideshow-list"
+                    infinite
+                    autoplay={true}
+                    autoplayInterval={2000}
+                >
+                    {imgList.map((item, index) => {
+                        return (
+                            <a key={index} className="slideshow-item-link" href="javascript:;">
+                                <img className="slideshow-item-img" src={item} />
+                            </a>
+                        );
+                    })
+                    }
+            </Carousel>
 	      	<div className='box'>
 	      		<h3 className='atitle'>电台</h3>
 	      		<div className="innerbox">

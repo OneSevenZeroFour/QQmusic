@@ -7,6 +7,7 @@ import Xtab from "./components/tab.jsx"
 import Xrecommand from "./components/recommand.jsx"
 import Xtop from "./components/top.jsx"
 import Xsearch from "./components/search.jsx"
+import Xtaoge from "./components/taoge.jsx"
 import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom'
 
 ReactDOM.render(
@@ -21,7 +22,7 @@ ReactDOM.render(
     	<Xtab />
     </div>
 
-   
+   <Route exact path="/taoge" component={Xtaoge}></Route>
     
    </div>
    </Provider>

@@ -53,7 +53,7 @@ class Xsearch extends React.Component{
     		this.setState({
 	            isRemindDivShow:false,
 	            isrecordList:false
-	        }); console.log(666)
+	        }); 
 	        this.addSearchRecord(document.getElementsByClassName('search_input')[0].value);
     		let offset = (this.state.pageNo - 1) * 20;
 	    	let searchText = document.getElementsByClassName('search_input')[0].value;
@@ -77,7 +77,7 @@ class Xsearch extends React.Component{
 	                    songList: response.data.result.songs,
 	                    isSearch: true
 	                });
-	                console.log(response.data)
+	               
 	            }).catch(function (error) {
 	                self.setState({
 	                    isCanGet: true,
@@ -95,7 +95,7 @@ class Xsearch extends React.Component{
 	            });
 	        	this.addSearchRecord(document.getElementsByClassName('search_input')[0].value);
 	            this.getSearhListAjax();
-	             console.log(this.state.isrecordList)
+	            
 	        }
 	    }
 
@@ -140,7 +140,7 @@ class Xsearch extends React.Component{
 
 	    //移除记录
 	    removeRecord(record) {
-	    	console.log(333)
+	    	
 	        const recordList = this.state.recordList.filter((item) => {
 	            return record !== item;
 	        });
@@ -213,7 +213,7 @@ class Xsearch extends React.Component{
 		       		</div>
 		       </div>
 		       <div>
-		       		<div style={{display:this.state.isrecordList?'block':'none'}}>
+		       		<div onScroll={this.getMoreSearchList.bind(this)} style={{display:this.state.isrecordList?'block':'none'}}>
 						<ul className="recordList" >
 	                        {
 	                            this.state.recordList.map((item,index) => {
@@ -235,8 +235,8 @@ class Xsearch extends React.Component{
                     
 
 
-					<div onScroll={this.getMoreSearchList.bind(this)} className="search_result"  style={{display:this.state.isRemindDivShow?'none':'block'}}>
-						<ul className="search_content" >
+					<div  className="search_result"  style={{display:this.state.isRemindDivShow?'none':'block'}}>
+						<ul onScroll={this.getMoreSearchList.bind(this)} className="search_content" >
 					       	{
 					       		
 					       	this.state.songList.map((item, index) => {
