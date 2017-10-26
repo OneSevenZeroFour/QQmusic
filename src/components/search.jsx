@@ -53,15 +53,16 @@ class Xsearch extends React.Component{
     		this.setState({
 	            isRemindDivShow:false,
 	            isrecordList:false
-	        });
+	        }); console.log(666)
 	        this.addSearchRecord(document.getElementsByClassName('search_input')[0].value);
     		let offset = (this.state.pageNo - 1) * 20;
 	    	let searchText = document.getElementsByClassName('search_input')[0].value;
 	    	let isSearch = this.state.isSearch;
 	    	if (this.state.isCanGet){
-		    	// self.setState({
-	      //           isCanGet: false,
-	      //       });
+		    	self.setState({
+	                isCanGet: false,
+	            });
+
 	            if (this.state.isSearch) {
 	                self.setState({
 	                    songList: []
@@ -71,11 +72,12 @@ class Xsearch extends React.Component{
 	           
 		    	axios.get(`https://api.imjad.cn/cloudmusic/?type=search&offset=${offset}&s=${searchText}`).then((response) => {
 	                self.setState({
-	                    
+	                    isCanGet: true,
 	                    totalCount: response.data.result.songCount,
 	                    songList: response.data.result.songs,
 	                    isSearch: true
 	                });
+	                console.log(response.data)
 	            }).catch(function (error) {
 	                self.setState({
 	                    isCanGet: true,
@@ -138,11 +140,13 @@ class Xsearch extends React.Component{
 
 	    //移除记录
 	    removeRecord(record) {
+	    	console.log(333)
 	        const recordList = this.state.recordList.filter((item) => {
 	            return record !== item;
 	        });
 	        this.setState({
-	            recordList
+	            recordList,
+	            isCanGet: true
 	        });
 	        localStorage["yqq_search_history"] = recordList.join(",");        
 	    }
@@ -153,6 +157,26 @@ class Xsearch extends React.Component{
 	        this.setState({
 	            recordList:[]
 	        });
+	    }
+
+	    //下拉加载更多数据
+	    getMoreSearchList(event) {
+	    	console.log(666)
+	        var scrollHeight = event.target.scrollHeight;
+	        var scrollTop = event.target.scrollTop;
+	        var clientHeight = event.target.clientHeight;
+	        if (scrollHeight - scrollTop - clientHeight < 10) {
+	            if (this.state.totalCount > this.state.songList.length) {
+	                if (this.state.isCanGet) {
+	                    this.setState({
+	                        pageNo: this.state.pageNo + 1,
+	                        isSearch: false
+	                    }, function () {
+	                        this.getSearhListAjax();
+	                    });
+	                }
+	            }
+	        }
 	    }
 
 	componentDidMount(){
@@ -194,9 +218,9 @@ class Xsearch extends React.Component{
 	                        {
 	                            this.state.recordList.map((item,index) => {
 	                                return (
-	                                    <li onClick={this.SearchRecord.bind(this)} className="recordItem border-bottom" key={index}>
+	                                    <li  className="recordItem border-bottom" key={index}>
 	                                        <span className="icon-recent"></span>
-	                                        <p>{item}</p>
+	                                        <p onClick={this.SearchRecord.bind(this)}>{item}</p>
 	                                        <span onClick={this.removeRecord.bind(this, item)} className="icon-close">
 
 	                                        </span>
@@ -211,7 +235,7 @@ class Xsearch extends React.Component{
                     
 
 
-					<div className="search_result"  style={{display:this.state.isRemindDivShow?'none':'block'}}>
+					<div onScroll={this.getMoreSearchList.bind(this)} className="search_result"  style={{display:this.state.isRemindDivShow?'none':'block'}}>
 						<ul className="search_content" >
 					       	{
 					       		
@@ -235,6 +259,9 @@ class Xsearch extends React.Component{
                                 
                             })
 							}
+							 <li className="hint" style={this.state.isCanGet ? { display: 'none' } : {}}>
+							 <i className="loading__icon"></i>
+							 正在加载更多...</li>
 						</ul>
 					</div>
 		       </div>

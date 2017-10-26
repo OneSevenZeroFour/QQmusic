@@ -67,6 +67,25 @@
     right: 60px;
     bottom: 56px;
 }
+.search_result .hint{
+    font-size:36px;
+    text-align:center;
+    margin-top: 30px;
+    border:none !important;
+}
+.search_result .hint .loading__icon{
+    vertical-align: middle;
+    position: relative;
+    top: -6px;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background: url(https://imgcache.gtimg.cn/mediastyle/mobile/app/qq/img/icon_loading.png?max_age=19830212&d=20151105145423) no-repeat;
+    background-size: 60px 60px;
+    -webkit-animation: ani_loading 1s infinite;
+}
+
+
 .title-search-history{ font-size: 36px;font-weight: normal;color:#47c88a;text-align: center;}
 .recordList{font-size: 42px;}
 .recordList li{
