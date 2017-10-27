@@ -1,6 +1,7 @@
 import React from "react";
 import { Carousel, Grid } from 'antd-mobile';
 import "../CSS/recommand.css"
+import {Link} from 'react-router-dom';
 
 class Xrecommand extends React.Component{
 	constructor(props) {
@@ -53,7 +54,7 @@ class Xrecommand extends React.Component{
 
 	      		<h3 className='atitle'>热门歌单</h3>
 	      		<div className="innerbox">
-	      			<a>
+	      			<Link to="/taoge">
 	      				<dl>
 	      					<dt><img src='./img/8.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>603.3万</span>
@@ -61,7 +62,7 @@ class Xrecommand extends React.Component{
 	      					<dd>催泪大杀器！盘点演唱...</dd>
 	      					<dd>Harry</dd>
 	      				</dl>
-	      			</a>
+	      			</Link>
 	      			<a>
 	      				<dl>
 	      					<dt><img src='./img/9.jpg'/>
