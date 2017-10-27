@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import store from "./store.js"
 import {Provider} from "react-redux"
 import "./CSS/base.css"
+
 import Xtab from "./components/tab.jsx"
 import Xrecommand from "./components/recommand.jsx"
 import Xtop from "./components/top.jsx"
@@ -21,3 +22,7 @@ ReactDOM.render(
    </div>
    </Provider>
 </Router>, document.getElementById("demo"))
+
+
+
+

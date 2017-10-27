@@ -1,7 +1,9 @@
 import React from "react";
 import "../CSS/tab.css"
 import Xrecommand from "./recommand.jsx"
-import Xtop from "./top.jsx"
+
+import RankList from '../component/RankList.jsx'
+import Toplist from '../component/Toplist.jsx'
 import Xsearch from "./search.jsx"
 import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom'
 
@@ -25,7 +27,7 @@ class NavJustified extends React.Component{
         		 this.state.isactive == 'first'?'active': ''
         	}>推荐</Link>
         	</li>
-        	<li ><Link to="/top" onClick={this.active} name="second" className={
+        	<li ><Link to="/ranklist" onClick={this.active} name="second" className={
         		 this.state.isactive == 'second'?'active': ''
         	}>排行榜</Link>
         	</li>
@@ -36,7 +38,8 @@ class NavJustified extends React.Component{
         </ul>
        
         <Route exact path="/recommand" component={Xrecommand}></Route>
-		<Route exact path="/top" component={Xtop}></Route>
+		<Route path="/ranklist" component={RankList}></Route> 
+        <Route exact path="/toplist/:id" component={Toplist}></Route> 
 		<Route exact path="/search" component={Xsearch}></Route>
         
         
