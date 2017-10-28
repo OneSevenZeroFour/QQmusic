@@ -3,28 +3,26 @@ import ReactDOM from "react-dom";
 import store from "./store.js"
 import {Provider} from "react-redux"
 import "./CSS/base.css"
-import {HashRouter as Router, Route, Link, Redirect,IndexRoute} from 'react-router-dom'
 
-import RankList from './component/RankList.jsx'
-import Toplist from './component/Toplist.jsx'
+import Xtab from "./components/tab.jsx"
+import Xrecommand from "./components/recommand.jsx"
+import Xtop from "./components/top.jsx"
+import Xsearch from "./components/search.jsx"
+import Xtaoge from "./components/taoge.jsx"
+import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom'
+import Xhome from "./components/home.jsx"
 
 ReactDOM.render(
 	<Router>
-  		<Provider store={store}>
-	  		<div>
-			    <div className="mod_header">
-			    	<div className="header" style={{width:"100%",backgroundColor: "#31c27c",height:"132px"}}>
-			    		<div className='music_logo'>QQ音乐</div>
-			    		<a href="javascript:;" className="btn_download">下载APP</a>
-			    	</div>
-			    </div>
-			    <div>
-                	<Route path="/ranklist" component={RankList}></Route> 
-			    </div>
-			    <div>
-                	<Route exact path="/toplist/:id" component={Toplist}></Route> 
-			    </div>
-			</div>
-  		</Provider>
-	 </Router>
-	, document.getElementById("demo"))
+	<Provider store={store}>
+  <div>
+  	<Xhome/>
+    <Route exact path="/taoge/:id" component={Xtaoge}></Route>
+    
+   </div>
+   </Provider>
+</Router>, document.getElementById("demo"))
+
+
+
+

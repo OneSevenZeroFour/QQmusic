@@ -6,7 +6,7 @@ let style = {
         fontSize: '3rem',
         position:'absolute',
         overflow:'hidden',
-        top:'132px'
+        top:'236px'
     },
     cover:{
         width:'100%',
