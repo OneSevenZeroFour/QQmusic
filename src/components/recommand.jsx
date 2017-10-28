@@ -19,7 +19,7 @@ class Xrecommand extends React.Component{
             "https://y.gtimg.cn/music/common/upload/t_focus_info_iphone/118122.jpg"
         ];
 	    return (
-	      <div>
+	      <div className="transition-In">
 	      	<Carousel
                     className="slideshow-list"
                     infinite
@@ -54,7 +54,7 @@ class Xrecommand extends React.Component{
 
 	      		<h3 className='atitle'>热门歌单</h3>
 	      		<div className="innerbox">
-	      			<Link to="/taoge">
+	      			<Link to="/taoge/2646688496">
 	      				<dl>
 	      					<dt><img src='./img/8.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>603.3万</span>
@@ -63,7 +63,7 @@ class Xrecommand extends React.Component{
 	      					<dd>Harry</dd>
 	      				</dl>
 	      			</Link>
-	      			<a>
+	      			<Link to="/taoge/1144416825">
 	      				<dl>
 	      					<dt><img src='./img/9.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>60.6万</span>
@@ -71,12 +71,12 @@ class Xrecommand extends React.Component{
 	      					<dd>纳尼？这些歌手竟然...</dd>
 	      					<dd>风吹草地</dd>
 	      				</dl>
-	      			</a>
+	      			</Link>
 	      		</div>
 
 	      		
 	      		<div className="innerbox">
-	      			<a>
+	      			<Link to="/taoge/2043041547">
 	      				<dl>
 	      					<dt><img src='./img/10.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>75.9万</span>
@@ -84,8 +84,8 @@ class Xrecommand extends React.Component{
 	      					<dd>精选内地十大名谣...</dd>
 	      					<dd>1's、</dd>
 	      				</dl>
-	      			</a>
-	      			<a>
+	      			</Link>
+	      			<Link to="/taoge/2040362185">
 	      				<dl>
 	      					<dt><img src='./img/11.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>115.3万</span>
@@ -94,12 +94,12 @@ class Xrecommand extends React.Component{
 	      					<dd>2016Billboard嘻哈...</dd>
 	      					<dd></dd>
 	      				</dl>
-	      			</a>
+	      			</Link>
 	      		</div>
 
 	      		
 	      		<div className="innerbox">
-	      			<a>
+	      			<Link to="/taoge/1723063372">
 	      				<dl>
 	      					<dt><img src='./img/12.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>86.3万</span>
@@ -108,8 +108,8 @@ class Xrecommand extends React.Component{
 	      					<dd>浮光掠影：ACG纯...</dd>
 	      					<dd>肥喵</dd>
 	      				</dl>
-	      			</a>
-	      			<a>
+	      			</Link>
+	      			<Link to="/taoge/3482605622">
 	      				<dl>
 	      					<dt><img src='./img/13.jpg'/>
 	      					<span className="icon_listen"><i className="icon_listens "></i>35.7万</span>
@@ -118,7 +118,7 @@ class Xrecommand extends React.Component{
 	      					<dd>tri-hop单曲大推荐</dd>
 	      					<dd>哑忍</dd>
 	      				</dl>
-	      			</a>
+	      			</Link>
 	      		</div>
 
 	      		<p className="list_more"><a href="">去发现更多好音乐></a></p>

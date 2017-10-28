@@ -21,6 +21,7 @@ class Xsearch extends React.Component{
 	    	isrecordList:true
 	    }
 	    this.submit= ()=>{
+	    	console.log(this)
 	    	return false
 	    }
 	    this.show=()=>{
@@ -185,13 +186,15 @@ class Xsearch extends React.Component{
 	 }
 	render() {
 	    return (
-	    	<div>
+	    	<div className="transition-In">
 		      <div className="searchbox" style={{width:"100%",height:"168px",lineHeight:"168px",backgroundColor:"#f4f4f4",overflow:"hidden",textAlign:"center"}}>
 		      		<div className="searchbox1">
-			      			<form onClick={this.show} id="search_form" method="get"  onSubmit={this.submit}>
+			      			<div className="form" onClick={this.show} id="search_form" method="get"  onSubmit={function(){
+			      				return false;
+			      			}}>
 				                <input onKeyUp={this.keyboardListener.bind(this)} onInput={this.showvalue} className="search_input" type="search" autoComplete="off" autoCorrect="off" placeholder="搜索歌曲、歌单、专辑" value={this.state.isvalue}/>
 
-				            </form>
+				            </div>
 				            <span className="icon icon_search">搜索</span>
 				            <div onClick={this.close} className="search_bar" style={{display:this.state.isshow?"block":"none"}}>
 				            	取消
@@ -244,6 +247,7 @@ class Xsearch extends React.Component{
 								return (
                                     <li className="qqMusic-searchList-item border-bottom" key={index}>
                                     	<span className="left" style={{position:"relative"}}>
+                                    		<i className="icons"></i>
                                     		<img src={item.al.picUrl?item.al.picUrl:""} />
                                     		<span className="icon icon_play"></span>
                                     	</span>

@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import React from "react";
 
-import style from "./CssInJs/TopList.css.js"
+import style from "../component/CssInJs/TopList.css.js"
 
 class TopListHeader extends React.Component {
     constructor(props) {
@@ -23,9 +23,16 @@ class TopListHeader extends React.Component {
             })
         }
     }
+    componentDidMount() {
+        console.log(this)
+    }
+    componentDidUpdate() {
+         console.log(this)
+    }
     render() {
         return ( 
                 <header style = {style.header} id="header"> { /*pic_album*/ } 
+                    <img src={this.props.detail.topinfo?this.props.detail.topinfo.pic_album:"#"} style={style.cover} />
                     <div style={style.headTitle}>
                         <div style={style.headIntroduce} >
                             <img src={this.props.detail.topinfo?this.props.detail.topinfo.pic_album:"#"} style={style.coverImage} />

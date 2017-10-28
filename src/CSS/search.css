@@ -37,6 +37,7 @@
     width:100%;
     height:175px;
     list-style: none;
+    padding-left: 40px;
     border-bottom:1px solid #ddd;
 }
 
@@ -95,7 +96,7 @@
 }
 .recordList li .icon-recent{
     position: absolute;
-    left: 0;
+    left: 30px;
     top: 5px;
     width: 60px;
     height: 60px;
@@ -134,4 +135,17 @@
     content: "";
     background: rgba(0,0,0,.6);
     -webkit-transform: rotate(45deg);
+}
+
+.qqMusic-searchList-item .icons{
+    position: absolute;
+    top: 44px;
+    left: 33px;
+    width: 86px;
+    height: 80px;
+    background-position: 0 0;
+    background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/search_sprite.png?max_age=19830212&d=20151105145423);
+    background-repeat: no-repeat;
+    background-size: 86px 110px;
+    z-index:-1;
 }

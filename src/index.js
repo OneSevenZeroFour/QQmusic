@@ -17,7 +17,7 @@ ReactDOM.render(
 	<Provider store={store}>
   <div>
   	<Xhome/>
-    <Route exact path="/taoge" component={Xtaoge}></Route>
+    <Route exact path="/taoge/:id" component={Xtaoge}></Route>
     
    </div>
    </Provider>

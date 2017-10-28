@@ -23,7 +23,7 @@ class NavJustified extends React.Component{
       <div>
         <ul className='hdtab'>
         	<li>
-        	<Link to="/recommand" onClick={this.active} name="first" className={
+        	<Link to="/" onClick={this.active} name="first" className={
         		 this.state.isactive == 'first'?'active': ''
         	}>推荐</Link>
         	</li>
@@ -37,7 +37,7 @@ class NavJustified extends React.Component{
         	</li>
         </ul>
        
-        <Route exact path="/recommand" component={Xrecommand}></Route>
+        <Route exact path="/" component={Xrecommand}></Route>
 		<Route path="/ranklist" component={RankList}></Route> 
         <Route exact path="/toplist/:id" component={Toplist}></Route> 
 		<Route exact path="/search" component={Xsearch}></Route>

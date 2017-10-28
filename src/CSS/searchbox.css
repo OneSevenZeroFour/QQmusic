@@ -19,8 +19,8 @@
     background-size: cover;
     text-indent: -999px;
 }
-form{margin:0;padding:0;}
-.searchbox1 form{
+.form{margin:0;padding:0;}
+.searchbox1 .form{
 	width:759px;
 	height:60px;
 	margin-left: 100px;
@@ -28,7 +28,7 @@ form{margin:0;padding:0;}
 	line-height: 60px;
 	padding-top: 23px;
 }
-.searchbox1 form input{
+.searchbox1 .form input{
 	width:644px;
 	height:60px;
 	font-size: 44px;
