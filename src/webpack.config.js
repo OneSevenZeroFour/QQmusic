@@ -70,7 +70,10 @@ app.get("/taoge",function(req,response){
                 data
             }));
         })
-    })
+    }).on('error', (e) => {
+        console.log(`错误信息: ${e.message}`);
+        response.send("网络故障")
+    }).end();
 });
 
 app.listen(12345);
