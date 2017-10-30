@@ -62,12 +62,13 @@ class Xtaoge extends React.Component{
 		    					"desc":songsdetail.desc
 		    				})
 
-		    				 sessionStorage.setItem(name, JSON.stringify(songlists))
+		    			sessionStorage.setItem(name, JSON.stringify(songlists))
 		    				 
 		    		
 		    			self.setState({
 		    				songLists:songlists
 		    			})
+
 		    		},
 	                error: function(e) {
 	                	console.log(e)
@@ -84,14 +85,12 @@ class Xtaoge extends React.Component{
 		this.songlistAjax()
 	}
     componentDidMount(){
-    	
-		 // this.fixedTop()
-		 console.log(this.state)
+		console.log(this.state)
     	this.fixedTop()
+
     }
     componentDidUpdate() {
-    	console.log(this.state.songLists[0].listIMGUrl) 
-    	console.log( JSON.parse(sessionStorage.getItem("songlists")))        
+    	console.log(this.state.songLists[0].listIMGUrl)        
     }
 	render() {
 	    return (
@@ -100,18 +99,18 @@ class Xtaoge extends React.Component{
 		      	
 		      	<div style={style.headTitle}>
 	                <div style={style.headIntroduce} >
-	                    <img src={this.state.songLists[0].listIMGUrl} style={style.coverImage} />
+	                    <img src={this.state.songLists[0]?this.state.songLists[0].listIMGUrl:"./image/default_pic.jpg"} style={style.coverImage} />
 	                    <ul style={style.rtitle}>
 	                        <li style={{
 	                        	height:"136px",
 	                        	overflow:"hidden"
-	                        }}>{this.state.songLists[0].dissname}</li>
+	                        }}>{this.state.songLists[0]?this.state.songLists[0].dissname:"加载中..."}</li>
 	                        <li style={{fontSize: "2.5rem",
     									paddingbottom: "2rem",
     									overflow:"hidden"
     								}}>
-	                        <img style={{width:"72px",height:"72px",marginTop:"55px"}} src={this.state.songLists[0].headimg}/> 
-	                        <span style={{display:"inline-block",marginLeft:"20px"}}>{this.state.songLists[0].nickname}</span></li>
+	                        <img style={{width:"72px",height:"72px",marginTop:"55px"}} src={this.state.songLists[0]?this.state.songLists[0].headimg:"./image/default_pic.jpg"}/> 
+	                        <span style={{display:"inline-block",marginLeft:"20px"}}>{this.state.songLists[0]?this.state.songLists[0].nickname:"加载中……"}</span></li>
 
 	                        <li>播放量：634.5万</li>
 	                       
@@ -124,42 +123,49 @@ class Xtaoge extends React.Component{
 		    </header>
 		    <article className='transition-In' style={{padding:"20px 30px"}}>
 		    	 <ul style={style.list}>
-		    	 	<span style={{fontSize:"39px",color:"grey",marginBottom:"90px",display:"block"}}>歌单  共{this.state.songLists[0].songnum}首</span>
-					{
-						this.state.songLists[0].songlist.map(function(item,index){
-							return (
-								<li style={{
-									fontSize:"13px",
-									color:"16px",
-									marginTop:"40px",
-									display: "block",
-								    maxWidth: "100%",
-								    overflow: "hidden",
-								    whiteSpace: "nowrap",
-								    textOverflow: "ellipsis"
-								}} key={index}>
-									<ul style={style.songDetail}>
-				                        <li style={{
-				                        	fontSize:"48px"
-				                        }}>{item.songname}</li>
-				                        <li style={{overflow: "hidden",
-												    whiteSpace: "nowrap",
-												    textOverflow: "ellipsis",
-												    color: "rgb(119, 119, 119)",
-												    fontSize: "39px",
-												    paddingTop: "0.5rem"}}>
-				                        	{item.albumname}
-				                       </li>
-				                    </ul>
-								</li>
+		    	 	<span style={{fontSize:"39px",color:"grey",marginBottom:"90px",display:"block"}}>歌单  共{this.state.songLists[0]?this.state.songLists[0].songnum:"加载中……"}首</span>
+					{	(()=>{
+							if(this.state.songLists[0]){
+								let arr=[];
+
+								arr=(this.state.songLists[0].songlist).map(function(item,index){
+									return (
+										<li style={{
+											fontSize:"13px",
+											color:"16px",
+											marginTop:"40px",
+											display: "block",
+										    maxWidth: "100%",
+										    overflow: "hidden",
+										    whiteSpace: "nowrap",
+										    textOverflow: "ellipsis"
+										}} key={index}>
+											<ul style={style.songDetail}>
+						                        <li style={{
+						                        	fontSize:"48px"
+						                        }}>{item.songname}</li>
+						                        <li style={{overflow: "hidden",
+														    whiteSpace: "nowrap",
+														    textOverflow: "ellipsis",
+														    color: "rgb(119, 119, 119)",
+														    fontSize: "39px",
+														    paddingTop: "0.5rem"}}>
+						                        	{item.albumname}
+						                       </li>
+						                    </ul>
+										</li>
 
 
-							)
-						})
-					}
+									)
+								})
+								 return arr;
+							}else{
+								return <p>加载中……</p>
+							}
+						
+						})()	
+					}		
 								
-								
-					
 		    	 </ul>
 		    </article>
 		    <footer style={{
@@ -181,7 +187,7 @@ class Xtaoge extends React.Component{
                             return <p>加载中……</p>
                         }
                     })()
-                    }
+                  }
 				 <p style={style.footerTitle}><img src="./image/logo.svg" style={style.footerImg}/></p>
                     <p style={style.footerTitle}>QQ音乐</p>
 		    </footer>

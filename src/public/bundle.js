@@ -71551,8 +71551,6 @@ var Xtaoge = function (_React$Component) {
 	}, {
 		key: "componentDidMount",
 		value: function componentDidMount() {
-
-			// this.fixedTop()
 			console.log(this.state);
 			this.fixedTop();
 		}
@@ -71560,7 +71558,6 @@ var Xtaoge = function (_React$Component) {
 		key: "componentDidUpdate",
 		value: function componentDidUpdate() {
 			console.log(this.state.songLists[0].listIMGUrl);
-			console.log(JSON.parse(sessionStorage.getItem("songlists")));
 		}
 	}, {
 		key: "render",
@@ -71579,7 +71576,7 @@ var Xtaoge = function (_React$Component) {
 						_react2.default.createElement(
 							"div",
 							{ style: _TopListCss2.default.headIntroduce },
-							_react2.default.createElement("img", { src: this.state.songLists[0].listIMGUrl, style: _TopListCss2.default.coverImage }),
+							_react2.default.createElement("img", { src: this.state.songLists[0] ? this.state.songLists[0].listIMGUrl : "./image/default_pic.jpg", style: _TopListCss2.default.coverImage }),
 							_react2.default.createElement(
 								"ul",
 								{ style: _TopListCss2.default.rtitle },
@@ -71589,7 +71586,7 @@ var Xtaoge = function (_React$Component) {
 											height: "136px",
 											overflow: "hidden"
 										} },
-									this.state.songLists[0].dissname
+									this.state.songLists[0] ? this.state.songLists[0].dissname : "加载中..."
 								),
 								_react2.default.createElement(
 									"li",
@@ -71597,11 +71594,11 @@ var Xtaoge = function (_React$Component) {
 											paddingbottom: "2rem",
 											overflow: "hidden"
 										} },
-									_react2.default.createElement("img", { style: { width: "72px", height: "72px", marginTop: "55px" }, src: this.state.songLists[0].headimg }),
+									_react2.default.createElement("img", { style: { width: "72px", height: "72px", marginTop: "55px" }, src: this.state.songLists[0] ? this.state.songLists[0].headimg : "./image/default_pic.jpg" }),
 									_react2.default.createElement(
 										"span",
 										{ style: { display: "inline-block", marginLeft: "20px" } },
-										this.state.songLists[0].nickname
+										this.state.songLists[0] ? this.state.songLists[0].nickname : "加载中……"
 									)
 								),
 								_react2.default.createElement(
@@ -71633,45 +71630,58 @@ var Xtaoge = function (_React$Component) {
 							"span",
 							{ style: { fontSize: "39px", color: "grey", marginBottom: "90px", display: "block" } },
 							"\u6B4C\u5355  \u5171",
-							this.state.songLists[0].songnum,
+							this.state.songLists[0] ? this.state.songLists[0].songnum : "加载中……",
 							"\u9996"
 						),
-						this.state.songLists[0].songlist.map(function (item, index) {
-							return _react2.default.createElement(
-								"li",
-								{ style: {
-										fontSize: "13px",
-										color: "16px",
-										marginTop: "40px",
-										display: "block",
-										maxWidth: "100%",
-										overflow: "hidden",
-										whiteSpace: "nowrap",
-										textOverflow: "ellipsis"
-									}, key: index },
-								_react2.default.createElement(
-									"ul",
-									{ style: _TopListCss2.default.songDetail },
-									_react2.default.createElement(
+						function () {
+							if (_this2.state.songLists[0]) {
+								var arr = [];
+
+								arr = _this2.state.songLists[0].songlist.map(function (item, index) {
+									return _react2.default.createElement(
 										"li",
 										{ style: {
-												fontSize: "48px"
-											} },
-										item.songname
-									),
-									_react2.default.createElement(
-										"li",
-										{ style: { overflow: "hidden",
+												fontSize: "13px",
+												color: "16px",
+												marginTop: "40px",
+												display: "block",
+												maxWidth: "100%",
+												overflow: "hidden",
 												whiteSpace: "nowrap",
-												textOverflow: "ellipsis",
-												color: "rgb(119, 119, 119)",
-												fontSize: "39px",
-												paddingTop: "0.5rem" } },
-										item.albumname
-									)
-								)
-							);
-						})
+												textOverflow: "ellipsis"
+											}, key: index },
+										_react2.default.createElement(
+											"ul",
+											{ style: _TopListCss2.default.songDetail },
+											_react2.default.createElement(
+												"li",
+												{ style: {
+														fontSize: "48px"
+													} },
+												item.songname
+											),
+											_react2.default.createElement(
+												"li",
+												{ style: { overflow: "hidden",
+														whiteSpace: "nowrap",
+														textOverflow: "ellipsis",
+														color: "rgb(119, 119, 119)",
+														fontSize: "39px",
+														paddingTop: "0.5rem" } },
+												item.albumname
+											)
+										)
+									);
+								});
+								return arr;
+							} else {
+								return _react2.default.createElement(
+									"p",
+									null,
+									"\u52A0\u8F7D\u4E2D\u2026\u2026"
+								);
+							}
+						}()
 					)
 				),
 				_react2.default.createElement(
