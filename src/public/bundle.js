@@ -40617,7 +40617,7 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, "/*\n* @Author: name\n* @Date:   2017-10-26 10:35:12\n* @Last Modified by:   name\n* @Last Modified time: 2017-10-26 16:22:38\n*/\n", ""]);
+exports.push([module.i, "/*\r\n* @Author: name\r\n* @Date:   2017-10-26 10:35:12\r\n* @Last Modified by:   name\r\n* @Last Modified time: 2017-10-26 16:22:38\r\n*/\r\n", ""]);
 
 // exports
 
@@ -40764,7 +40764,7 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, " #lyric {\n    height: 100%;\n  }\n\n  .lyric-item {\n    text-align: center;\n\n  }\n\n  .lyric-item:first-child {\n    font-size: 14px;\n    color: #4d4d4d;\n  }\n\n  .lyric-item:last-child {\n    font-size: 14px;\n    color: #4d4d4d;\n  }\n\n.lrc-inner {\n    position: absolute;\n    margin-top: 10px;\n    width: 100%;\n    text-align: center;\n    top: 0;\n}\n\n.lrc-inner:hover {\n    top: -90px;\n    transition: all 4s linear 0s\n}\n", ""]);
+exports.push([module.i, " #lyric {\r\n    height: 100%;\r\n  }\r\n\r\n  .lyric-item {\r\n    text-align: center;\r\n\r\n  }\r\n\r\n  .lyric-item:first-child {\r\n    font-size: 14px;\r\n    color: #4d4d4d;\r\n  }\r\n\r\n  .lyric-item:last-child {\r\n    font-size: 14px;\r\n    color: #4d4d4d;\r\n  }\r\n\r\n.lrc-inner {\r\n    position: absolute;\r\n    margin-top: 10px;\r\n    width: 100%;\r\n    text-align: center;\r\n    top: 0;\r\n}\r\n\r\n.lrc-inner:hover {\r\n    top: -90px;\r\n    transition: all 4s linear 0s\r\n}\r\n", ""]);
 
 // exports
 
@@ -43056,7 +43056,7 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, ".progress-bar-group {\n    height: 30px;\n  }\n\n  .progress-bar-group .progress-bar {\n    height: 4px;\n    background: #cccccc;\n    position: relative;\n  }\n\n  .progress-bar-group .progress-bar .progress {\n    height: 100%;\n    background: #7f7f7f;\n    /*width: 20%;*/\n  }\n  .progress-bar-group .progress-bar .indicater {\n    position: absolute;\n    width: 2px;\n    height: 12px;\n    background: #ff2d55;\n    top: 0;\n    /*left: 20%;*/\n  }\n  .progress-bar-group .time-indicater {\n    margin-top: 8px;\n    line-height: 16px;\n    font-size: 12px;\n  }\n\n  .progress-bar-group .time-indicater span {\n    padding: 0 10px;\n  }\n\n  .progress-bar-group .time-indicater span:last-child {\n    float: right;\n  }\n   .music-ctrl {\n    height: 50px;\n  }\n\n   .music-ctrl ul {\n    height: 100%;\n    width: 100%;\n    list-style: none;\n  }\n\n   .music-ctrl ul li {\n    float: left;\n    width: 20%;\n    height: 100%;\n  }\n\n   .music-ctrl ul li img {\n    display: block;\n    width: 35px;\n    margin: 0 auto;\n  }\n\n   .music-ctrl ul li:first-child img {\n    margin-left: 10px;\n  }\n\n   .music-ctrl ul li:last-child img {\n    margin-right: 10px;\n  }\n", ""]);
+exports.push([module.i, ".progress-bar-group {\r\n    height: 30px;\r\n  }\r\n\r\n  .progress-bar-group .progress-bar {\r\n    height: 4px;\r\n    background: #cccccc;\r\n    position: relative;\r\n  }\r\n\r\n  .progress-bar-group .progress-bar .progress {\r\n    height: 100%;\r\n    background: #7f7f7f;\r\n    /*width: 20%;*/\r\n  }\r\n  .progress-bar-group .progress-bar .indicater {\r\n    position: absolute;\r\n    width: 2px;\r\n    height: 12px;\r\n    background: #ff2d55;\r\n    top: 0;\r\n    /*left: 20%;*/\r\n  }\r\n  .progress-bar-group .time-indicater {\r\n    margin-top: 8px;\r\n    line-height: 16px;\r\n    font-size: 12px;\r\n  }\r\n\r\n  .progress-bar-group .time-indicater span {\r\n    padding: 0 10px;\r\n  }\r\n\r\n  .progress-bar-group .time-indicater span:last-child {\r\n    float: right;\r\n  }\r\n   .music-ctrl {\r\n    height: 50px;\r\n  }\r\n\r\n   .music-ctrl ul {\r\n    height: 100%;\r\n    width: 100%;\r\n    list-style: none;\r\n  }\r\n\r\n   .music-ctrl ul li {\r\n    float: left;\r\n    width: 20%;\r\n    height: 100%;\r\n  }\r\n\r\n   .music-ctrl ul li img {\r\n    display: block;\r\n    width: 35px;\r\n    margin: 0 auto;\r\n  }\r\n\r\n   .music-ctrl ul li:first-child img {\r\n    margin-left: 10px;\r\n  }\r\n\r\n   .music-ctrl ul li:last-child img {\r\n    margin-right: 10px;\r\n  }\r\n", ""]);
 
 // exports
 
@@ -43210,7 +43210,7 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, "#play-bar {\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: -webkit-linear-gradient(top, #f9f9f9, #f3f3f3);\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    z-index: 2;\n  }\n\n  .play-bar-image-container {\n    width: 37.5px;\n    height: 37.5px;\n    padding-left: 15px;\n    cursor: pointer;\n  }\n\n  .play-bar-image {\n    width: 37.5px;\n    height: 37.5px;\n    border-radius: 5px;\n    display: inline-block;\n  }\n\n  .play-bar-text {\n    flex-grow: 1;\n    padding-left: 10px;\n    cursor: pointer;\n  }\n\n  .play-bar-button {\n    width: 20px;\n    height: 20px;\n    padding-right: 15px;\n    cursor: pointer;\n  }", ""]);
+exports.push([module.i, "#play-bar {\r\n    position: fixed;\r\n    bottom: 0;\r\n    width: 100%;\r\n    height: 60px;\r\n    background: -webkit-linear-gradient(top, #f9f9f9, #f3f3f3);\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    z-index: 2;\r\n  }\r\n\r\n  .play-bar-image-container {\r\n    width: 37.5px;\r\n    height: 37.5px;\r\n    padding-left: 15px;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .play-bar-image {\r\n    width: 37.5px;\r\n    height: 37.5px;\r\n    border-radius: 5px;\r\n    display: inline-block;\r\n  }\r\n\r\n  .play-bar-text {\r\n    flex-grow: 1;\r\n    padding-left: 10px;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .play-bar-button {\r\n    width: 20px;\r\n    height: 20px;\r\n    padding-right: 15px;\r\n    cursor: pointer;\r\n  }", ""]);
 
 // exports
 
