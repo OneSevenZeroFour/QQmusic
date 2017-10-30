@@ -2,6 +2,7 @@ var webpack = require('webpack');
 
 
 module.exports = {
+
     devtool: "source-map",
     entry: "./index.js",
     output: {
@@ -16,7 +17,11 @@ module.exports = {
         }, {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
-        }]
+        },{
+          test: /\.(png|jpg|gif)$/,
+          loader: 'url-loader'
+    }
+    ]
     },
     watch: true,
     devServer: {
@@ -25,6 +30,7 @@ module.exports = {
         port: 12345
     }
 }
+
 
 var http = require("http");
 var express = require("express");
@@ -50,5 +56,23 @@ app.get("/get", function(req, res) {
         res.send("网络故障")
     }).end();
 })
+
+app.get("/taoge",function(req,response){
+    response.setHeader("Access-Control-Allow-Origin","*");
+    http.get("http://ustbhuangyi.com/music/api/getCdInfo?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&type=1&json=1&utf8=1&onlysong=0&platform=yqq&hostUin=0&needNewCode=0"+"&disstid="+req.query.disstid,function(res){
+        var data = "";
+        res.on("data",function(chunk){
+            data+=chunk
+        })
+        res.on("end",function(){
+            console.log("请求成功")
+            response.send(JSON.stringify({
+                data
+            }));
+        })
+    })
+});
+
 app.listen(12345);
 console.log("已开启服务器，请访问 —— localhost:12345")
+

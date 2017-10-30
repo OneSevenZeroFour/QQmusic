@@ -1,0 +1,92 @@
+.box{
+	font-size: 36px;
+	padding:5px 15px;
+	background-color: #F4F4F4;
+}
+.box h3{font-weight:normal;font-size: 44px;margin:0;padding:25px 0;}
+
+.box .innerbox{
+	display: flex;
+	justify-content:space-between;
+	background-color: #fff;
+	margin-bottom:30px;
+}
+.box .innerbox dl{margin-top: 0;}
+.box .innerbox dt{
+	position:relative;
+}
+.box .innerbox span.icon_listen{
+	position:absolute;
+  	left: 16px;
+   bottom: 22px;
+   color:white;
+   height:45px;
+}
+.box .innerbox span.icon_listen .icon_listens{
+	background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/list_sprite.png?max_age=19830212&d=20151105145423);
+    background-repeat: no-repeat;
+    background-size: 72px 180px;
+    width:30px;
+    height:30px;
+    display: block;
+    background-position: 0 -150px;
+    float:left;
+    margin-right: 15px;
+    margin-top:10px;
+}
+.box .innerbox dt span.icon{
+	background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/list_sprite.png?max_age=19830212&d=20151105145423);
+    background-repeat: no-repeat;
+    background-size: 72px 180px;
+   width:72px;
+   height:72px;
+   display: block;
+   position:absolute;
+  right: 16px;
+   bottom: 22px;
+}
+.box .innerbox dd{
+	text-indent:1em;
+	margin:10px 0;
+}
+.box .innerbox img{
+	width:464px;
+}
+p{
+	width:100%;
+	text-align: center;
+}
+.list_more{
+	padding:10px 0;
+}
+.list_more a{
+	text-decoration: none;
+	font-size: 42px;
+	color:rgba(0,0,0,.6)
+}
+.mod_footer{
+
+}
+.mod_footer a{
+	text-decoration: none;
+	font-size: 42px;
+	color:#000;
+}
+.music_logo2{
+	display: block;
+    width: 246px;
+    height: 72px;
+    margin: 0 auto 30px;
+    background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/logo_footer.png?max_age=19830212&d=20151105145423);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-indent: -9999px;
+}
+.mod_footer .copyright{
+	color: rgba(0,0,0,.5);
+	font-size:30px;
+	margin:20px 0;
+
+}
+a{color:black;}
+
