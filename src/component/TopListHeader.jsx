@@ -26,6 +26,7 @@ class TopListHeader extends React.Component {
     render() {
         return ( 
                 <header style = {style.header} id="header"> { /*pic_album*/ } 
+                    <img src={this.props.detail.topinfo?this.props.detail.topinfo.pic_album:"#"} style={style.cover} />
                     <div style={style.headTitle}>
                         <div style={style.headIntroduce} >
                             <img src={this.props.detail.topinfo?this.props.detail.topinfo.pic_album:"#"} style={style.coverImage} />

@@ -70173,6 +70173,7 @@ var TopListHeader = function (_React$Component) {
                 "header",
                 { style: _TopListCss2.default.header, id: "header" },
                 " ",
+                _react2.default.createElement("img", { src: this.props.detail.topinfo ? this.props.detail.topinfo.pic_album : "#", style: _TopListCss2.default.cover }),
                 _react2.default.createElement(
                     "div",
                     { style: _TopListCss2.default.headTitle },
@@ -71567,6 +71568,7 @@ var Xtaoge = function (_React$Component) {
 				_react2.default.createElement(
 					"header",
 					{ style: _TopListCss2.default.header, id: "header" },
+					_react2.default.createElement("img", { src: this.state.songLists[0] ? this.state.songLists[0].listIMGUrl : "./image/default_pic.jpg", style: _TopListCss2.default.cover }),
 					_react2.default.createElement(
 						"div",
 						{ style: _TopListCss2.default.headTitle },

@@ -102,7 +102,7 @@ class Xtaoge extends React.Component{
 	    return (
 	    <div>
 		    <header style = {style.header} id="header">
-		      	
+		      	<img src={this.state.songLists[0]?this.state.songLists[0].listIMGUrl:"./image/default_pic.jpg"} style={style.cover} />
 		      	<div style={style.headTitle}>
 	                <div style={style.headIntroduce} >
 	                    <img src={this.state.songLists[0]?this.state.songLists[0].listIMGUrl:"./image/default_pic.jpg"} style={style.coverImage} />
