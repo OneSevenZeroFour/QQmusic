@@ -1,0 +1,31 @@
+ #lyric {
+    height: 100%;
+  }
+
+  .lyric-item {
+    text-align: center;
+
+  }
+
+  .lyric-item:first-child {
+    font-size: 14px;
+    color: #4d4d4d;
+  }
+
+  .lyric-item:last-child {
+    font-size: 14px;
+    color: #4d4d4d;
+  }
+
+.lrc-inner {
+    position: absolute;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    top: 0;
+}
+
+.lrc-inner:hover {
+    top: -90px;
+    transition: all 4s linear 0s
+}

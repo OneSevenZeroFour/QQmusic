@@ -24,8 +24,8 @@ class TopListHeader extends React.Component {
         }
     }
     render() {
-        return ( 
-                <header style = {style.header} id="header"> { /*pic_album*/ } 
+        return (
+                <header style = {style.header} id="header"> { /*pic_album*/ }
                     <img src={this.props.detail.topinfo?this.props.detail.topinfo.pic_album:"#"} style={style.cover} />
                     <div style={style.headTitle}>
                         <div style={style.headIntroduce} >
@@ -35,7 +35,7 @@ class TopListHeader extends React.Component {
                                 <li style={style.listDays}>{
                                     (()=>{
                                         if(this.props.detail.day_of_year){
-                                            return '第'+this.props.detail.day_of_year+'天';                                        
+                                            return '第'+this.props.detail.day_of_year+'天';
                                         }else{
                                             return this.props.detail.date?'第'+(this.props.detail.date).split("_")[1]+"周":"加载中……";
                                         }
@@ -48,7 +48,7 @@ class TopListHeader extends React.Component {
                             <p style={style.playButton}  id="playBottom"><i style={style.triangle}></i>播放全部</p>
                         </div>
                     </div>
-                </header> 
+                </header>
         )
     }
     componentDidMount(){

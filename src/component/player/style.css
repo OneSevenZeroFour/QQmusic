@@ -1,0 +1,65 @@
+.progress-bar-group {
+    height: 30px;
+  }
+
+  .progress-bar-group .progress-bar {
+    height: 4px;
+    background: #cccccc;
+    position: relative;
+  }
+
+  .progress-bar-group .progress-bar .progress {
+    height: 100%;
+    background: #7f7f7f;
+    /*width: 20%;*/
+  }
+  .progress-bar-group .progress-bar .indicater {
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background: #ff2d55;
+    top: 0;
+    /*left: 20%;*/
+  }
+  .progress-bar-group .time-indicater {
+    margin-top: 8px;
+    line-height: 16px;
+    font-size: 12px;
+  }
+
+  .progress-bar-group .time-indicater span {
+    padding: 0 10px;
+  }
+
+  .progress-bar-group .time-indicater span:last-child {
+    float: right;
+  }
+   .music-ctrl {
+    height: 50px;
+  }
+
+   .music-ctrl ul {
+    height: 100%;
+    width: 100%;
+    list-style: none;
+  }
+
+   .music-ctrl ul li {
+    float: left;
+    width: 20%;
+    height: 100%;
+  }
+
+   .music-ctrl ul li img {
+    display: block;
+    width: 35px;
+    margin: 0 auto;
+  }
+
+   .music-ctrl ul li:first-child img {
+    margin-left: 10px;
+  }
+
+   .music-ctrl ul li:last-child img {
+    margin-right: 10px;
+  }

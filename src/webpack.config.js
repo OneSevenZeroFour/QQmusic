@@ -6,7 +6,8 @@ module.exports = {
     entry: "./index.js",
     output: {
         path: __dirname + "/public",
-        filename: "bundle.js"
+        filename: "bundle.js",
+        publicPath:"/"
     },
     module: {
         loaders: [{
@@ -20,7 +21,7 @@ module.exports = {
     },
     watch: true,
     devServer: {
-        contentBase: "./public",
+        contentBase: "/",
         inline: true,
         port: 12345
     }
@@ -50,5 +51,20 @@ app.get("/get", function(req, res) {
         res.send("网络故障")
     }).end();
 })
+app.get("/geci",function(req,response){
+    response.setHeader("Access-Control-Allow-Origin","*");
+    http.get("http://ustbhuangyi.com/music/api/lyric?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=json&platform=yqq&hostUin=0&needNewCode=0&categoryId=10000000&pcachetime=1508832114648"+"&songmid="+req.query.songmid,function(res){
+        var data = "";
+        res.on("data",function(chunk){
+            data+=chunk
+        })
+        res.on("end",function(){
+            console.log("请求成功")
+            response.send(JSON.stringify({
+                data
+            }));
+        })
+    })
+});
 app.listen(12345);
 console.log("已开启服务器，请访问 —— localhost:12345")

@@ -16,6 +16,8 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
+    "js-base64": "^2.3.2",
+    "lyric-parser": "^1.0.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",

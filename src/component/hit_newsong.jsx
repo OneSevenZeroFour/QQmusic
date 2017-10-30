@@ -61,6 +61,7 @@ class HitNewSong extends React.Component {
             document.addEventListener("scroll",()=>{
                     this.lazyLoad()
                 })
+            console.log(this)
     }
     componentDidUpdate() {
             this.lazyLoad();
