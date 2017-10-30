@@ -71476,7 +71476,6 @@ var Xtaoge = function (_React$Component) {
 			songLists: []
 		};
 		_this.fixedTop = function () {
-			console.log(666);
 			var header = document.getElementById('header');
 			var headerHeight = header.offsetHeight;
 			var playBottom = document.getElementById('playBottom');
@@ -71498,10 +71497,9 @@ var Xtaoge = function (_React$Component) {
 
 			var id = _this.props.match.params.id;
 			var name = "songlistsID" + id;
-			console.log(id);
-			console.log(name);
+
 			if (sessionStorage.getItem(name)) {
-				console.log(555);
+
 				self.setState({
 					songLists: JSON.parse(sessionStorage.getItem(name))
 				});
@@ -71512,29 +71510,30 @@ var Xtaoge = function (_React$Component) {
 					url: "http://localhost:12345/taoge",
 					data: { disstid: _this.props.match.params.id },
 					success: function success(res) {
-						Data = JSON.parse(JSON.parse(res).data);
-						console.log(Data.cdlist[0]);
-						var songsdetail = Data.cdlist[0];
-						console.log(songsdetail);
-						var songlists = [];
-						songlists.push({
-							"listIMGUrl": songsdetail.logo,
-							"nickname": songsdetail.nickname,
-							"dissname": songsdetail.dissname,
-							"songlist": songsdetail.songlist,
-							"headimg": songsdetail.headurl,
-							"songnum": songsdetail.songnum,
-							"desc": songsdetail.desc
-						});
+						if (res === "网络故障" || res === " ") {
+							console.log(res);
+						} else {
+							Data = JSON.parse(JSON.parse(res).data);
+							var songsdetail = Data.cdlist[0];
+							var songlists = [];
+							songlists.push({
+								"listIMGUrl": songsdetail.logo,
+								"nickname": songsdetail.nickname,
+								"dissname": songsdetail.dissname,
+								"songlist": songsdetail.songlist,
+								"headimg": songsdetail.headurl,
+								"songnum": songsdetail.songnum,
+								"desc": songsdetail.desc
+							});
+							sessionStorage.setItem(name, JSON.stringify(songlists));
 
-						sessionStorage.setItem(name, JSON.stringify(songlists));
-
-						self.setState({
-							songLists: songlists
-						});
+							self.setState({
+								songLists: songlists
+							});
+						}
 					},
 					error: function error(e) {
-						console.log(e);
+						alert('请检查网络！');
 					}
 				});
 			}
@@ -71551,14 +71550,12 @@ var Xtaoge = function (_React$Component) {
 	}, {
 		key: "componentDidMount",
 		value: function componentDidMount() {
-			console.log(this.state);
+
 			this.fixedTop();
 		}
 	}, {
 		key: "componentDidUpdate",
-		value: function componentDidUpdate() {
-			console.log(this.state.songLists[0].listIMGUrl);
-		}
+		value: function componentDidUpdate() {}
 	}, {
 		key: "render",
 		value: function render() {

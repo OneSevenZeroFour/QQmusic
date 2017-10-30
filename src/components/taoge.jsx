@@ -11,7 +11,7 @@ class Xtaoge extends React.Component{
 	    this.state = {
 	    	songLists:[]
 	    }
-	    this.fixedTop=()=>{console.log(666)
+	    this.fixedTop=()=>{
             const header=document.getElementById('header');
             const headerHeight = header.offsetHeight;
             const playBottom = document.getElementById('playBottom');
@@ -33,10 +33,9 @@ class Xtaoge extends React.Component{
 
 	    	var id = this.props.match.params.id;
 	    	var name="songlistsID"+id;
-	    	console.log(id)
-	    	console.log(name)
+	    	
 	    	if(sessionStorage.getItem(name)){
-	    		console.log(555)
+	    		
 	    		 self.setState({
 	    		 	songLists:JSON.parse(sessionStorage.getItem(name))
 	    		 })
@@ -47,11 +46,12 @@ class Xtaoge extends React.Component{
 		    		url: "http://localhost:12345/taoge",
 		    		data:{disstid:this.props.match.params.id},
 		    		success: function(res){
-		    			Data = JSON.parse(JSON.parse(res).data);
-		    			console.log(Data.cdlist[0])
-		    			var songsdetail = Data.cdlist[0];
-		    				console.log(songsdetail)
-		    				var songlists = [];
+		    			 if (res === "网络故障" || res === " ") 
+		    			 	{ console.log(res);}
+		    			else{
+		    			 	Data = JSON.parse(JSON.parse(res).data);
+		    			 	var songsdetail = Data.cdlist[0];
+		    			 	var songlists = [];
 		    				songlists.push({
 		    					"listIMGUrl":songsdetail.logo,
 		    					"nickname":songsdetail.nickname,
@@ -61,18 +61,24 @@ class Xtaoge extends React.Component{
 		    					"songnum":songsdetail.songnum,
 		    					"desc":songsdetail.desc
 		    				})
-
-		    			sessionStorage.setItem(name, JSON.stringify(songlists))
+		    				sessionStorage.setItem(name, JSON.stringify(songlists))
 		    				 
 		    		
-		    			self.setState({
-		    				songLists:songlists
-		    			})
+			    			self.setState({
+			    				songLists:songlists
+			    			})
+		    			}
+		    			
+		    			
+		    			
+		    				
+		    				
+
+		    			
 
 		    		},
 	                error: function(e) {
-	                	console.log(e)
-	                    
+	                	 alert('请检查网络！');
 	                }
 		    	})
 	    	}
@@ -85,12 +91,12 @@ class Xtaoge extends React.Component{
 		this.songlistAjax()
 	}
     componentDidMount(){
-		console.log(this.state)
+		
     	this.fixedTop()
 
     }
     componentDidUpdate() {
-    	console.log(this.state.songLists[0].listIMGUrl)        
+    	   
     }
 	render() {
 	    return (
